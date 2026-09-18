@@ -13,7 +13,7 @@ export default defineConfig({
       '/sitemap.xml': {
         target: 'https://imagetech-server.onrender.com',
         changeOrigin: true,
-        rewrite: () => '/sitemap.xml?domain=barcoater.com',
+        rewrite: () => '/sitemap.xml?domain=www.barcoater.com',
       },
     },
   },

@@ -166,7 +166,7 @@ const CityProductPage = () => {
     name: `${product.name} in ${location.name}`,
     image: images[0]?.startsWith("http")
       ? images[0]
-      : `https://barcoater.com${images[0]}`,
+      : `https://www.barcoater.com${images[0]}`,
     description: `${product.shortDescription} Manufactured and supplied by ImageTech Industries in ${location.name}, ${location.state}.`,
     brand: {
       "@type": "Brand",
@@ -199,7 +199,7 @@ const CityProductPage = () => {
         image={
           images[0]?.startsWith("http")
             ? images[0]
-            : `https://barcoater.com${images[0]}`
+            : `https://www.barcoater.com${images[0]}`
         }
         keywords={[
           `${product.name} in ${location.name}`,

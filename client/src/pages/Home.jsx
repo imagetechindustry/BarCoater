@@ -14,8 +14,8 @@ const Home = () => {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "ImageTech Industries",
-    "url": "https://barcoater.com/",
-    "logo": "https://barcoater.com/logo.png",
+    "url": "https://www.barcoater.com/",
+    "logo": "https://www.barcoater.com/logo.png",
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+91-9811000000",
@@ -34,7 +34,7 @@ const Home = () => {
     "@context": "https://schema.org/",
     "@type": "Product",
     "name": "Bar Coaters",
-    "image": "https://barcoater.com/heroimage.webp",
+    "image": "https://www.barcoater.com/heroimage.webp",
     "description": "The best Bar Coaters in India. Premium Bar Coaters for laboratory testing, coating application, and quality control.",
     "brand": {
       "@type": "Brand",

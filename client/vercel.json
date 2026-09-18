@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/sitemap.xml",
-      "destination": "https://imagetech-server.onrender.com/sitemap.xml?domain=barcoater.com"
+      "destination": "https://imagetech-server.onrender.com/sitemap.xml?domain=www.barcoater.com"
     },
     {
       "source": "/(.*)",

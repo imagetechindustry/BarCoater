@@ -23,7 +23,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <a
-                href="https://barcoater.com"
+                href="https://www.barcoater.com"
                 className="flex items-center gap-2"
               >
                 <img
