@@ -22,13 +22,21 @@ const ContactUs = () => {
     "mainEntity": {
       "@type": "Organization",
       "name": "ImageTech Industries",
+      "url": "https://www.barcoater.com/",
       "contactPoint": {
         "@type": "ContactPoint",
-        "telephone": "+91-9811000000",
+        "telephone": "+91 8448336036",
         "contactType": "sales",
-        "email": "sales@imagetechindustries.com",
+        "email": "imagetechindustries@gmail.com",
         "areaServed": "IN",
         "availableLanguage": "en"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "RZ-I-13, 2nd Floor, Nanda Block, Mahavir Enclave",
+        "addressLocality": "Delhi",
+        "postalCode": "110045",
+        "addressCountry": "IN"
       }
     }
   };
