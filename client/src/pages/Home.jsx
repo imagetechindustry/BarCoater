@@ -1,6 +1,10 @@
 import React from "react";
 import HomeHero from "../components/home/HomeHero";
 import HomeProducts from "../components/home/HomeProducts";
+import HomeSelectionCalculator from "../components/home/HomeSelectionCalculator";
+import HomeWorkingPrinciple from "../components/home/HomeWorkingPrinciple";
+import HomePressApplications from "../components/home/HomePressApplications";
+import HomeTroubleshootingFinder from "../components/home/HomeTroubleshootingFinder";
 import HomeIndustries from "../components/home/HomeIndustries";
 import HomeAbout from "../components/home/HomeAbout";
 import HomeCertifications from "../components/home/HomeCertifications";
@@ -78,6 +82,10 @@ const Home = () => {
         <HomeAbout />
         <HomeCertifications />
         <HomeWhyChoose />
+        <HomeSelectionCalculator />
+        <HomeWorkingPrinciple />
+        <HomePressApplications />
+        <HomeTroubleshootingFinder />
         <HomeFAQ />
         <HomeCTA />
       </main>

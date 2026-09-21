@@ -123,6 +123,7 @@ const Sitemap = () => {
           )}
         </div>
 
+
         {isLoading ? (
           <SitemapSkeleton />
         ) : (
@@ -180,6 +181,92 @@ const Sitemap = () => {
             )}
           </div>
         )}
+
+        {/* Technical Guides & Engineering Resources Section */}
+        <div className="mb-12 bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+          <div className="bg-gradient-to-r from-blue-50 to-white border-b border-blue-100 px-6 py-4 flex items-center justify-between">
+            <div>
+              <h2 className="text-xl font-bold text-slate-900">Technical Guides & Engineering Suite</h2>
+              <p className="text-xs text-slate-500 mt-0.5">Sizing tools, Mayer rod fluid physics, and coating defect troubleshooting</p>
+            </div>
+            <span className="text-blue-600 bg-white rounded-full px-3 py-1 text-xs font-bold border border-blue-100 shadow-sm">
+              4 Guides
+            </span>
+          </div>
+          <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Link
+              to="/selection-guide"
+              className="group flex flex-col justify-between bg-slate-50 border border-slate-200 hover:border-blue-500 p-4 rounded-2xl transition-all hover:shadow-md"
+            >
+              <div>
+                <span className="text-[10px] font-black text-blue-600 uppercase tracking-wider block mb-1">Calculator</span>
+                <h3 className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                  Selection & Sizing Guide
+                </h3>
+                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                  Formula calculator, web width sizing, and 3-step measuring guide.
+                </p>
+              </div>
+              <span className="text-xs font-bold text-blue-600 mt-3 flex items-center gap-1">
+                Open Guide &rarr;
+              </span>
+            </Link>
+
+            <Link
+              to="/working-principle"
+              className="group flex flex-col justify-between bg-slate-50 border border-slate-200 hover:border-blue-500 p-4 rounded-2xl transition-all hover:shadow-md"
+            >
+              <div>
+                <span className="text-[10px] font-black text-blue-600 uppercase tracking-wider block mb-1">Physics Core</span>
+                <h3 className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                  Working Principle & Physics
+                </h3>
+                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                  Mayer rod capillary hydraulics, 50/50 meniscus split, and leveling dynamics.
+                </p>
+              </div>
+              <span className="text-xs font-bold text-blue-600 mt-3 flex items-center gap-1">
+                Open Guide &rarr;
+              </span>
+            </Link>
+
+            <Link
+              to="/press-applications"
+              className="group flex flex-col justify-between bg-slate-50 border border-slate-200 hover:border-blue-500 p-4 rounded-2xl transition-all hover:shadow-md"
+            >
+              <div>
+                <span className="text-[10px] font-black text-blue-600 uppercase tracking-wider block mb-1">6 Sectors</span>
+                <h3 className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                  Press Applications
+                </h3>
+                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                  Packaging, flexo, gravure, paper mills, adhesives, and battery slurries.
+                </p>
+              </div>
+              <span className="text-xs font-bold text-blue-600 mt-3 flex items-center gap-1">
+                Open Guide &rarr;
+              </span>
+            </Link>
+
+            <Link
+              to="/troubleshooting-guide"
+              className="group flex flex-col justify-between bg-slate-50 border border-slate-200 hover:border-blue-500 p-4 rounded-2xl transition-all hover:shadow-md"
+            >
+              <div>
+                <span className="text-[10px] font-black text-blue-600 uppercase tracking-wider block mb-1">Defect Finder</span>
+                <h3 className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                  Troubleshooting Guide
+                </h3>
+                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                  Visual Quick-Finder table, 6 defect diagnostic cards, and cleaning SOP.
+                </p>
+              </div>
+              <span className="text-xs font-bold text-blue-600 mt-3 flex items-center gap-1">
+                Open Guide &rarr;
+              </span>
+            </Link>
+          </div>
+        </div>
       </div>
     </>
   );

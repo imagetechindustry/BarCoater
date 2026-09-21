@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
+import scrollToTop from "../../utils/scrollToTop";
 
 const Footer = () => {
   const { locationSlug } = useParams();
@@ -104,6 +105,7 @@ const Footer = () => {
               <li>
                 <Link
                   to={getHomeLink()}
+                  onClick={scrollToTop}
                   className="hover:text-blue-600 flex items-center transition-colors"
                 >
                   <svg
@@ -125,6 +127,7 @@ const Footer = () => {
               <li>
                 <Link
                   to={`${getHomeLink()}#about`}
+                  onClick={scrollToTop}
                   className="hover:text-blue-600 flex items-center transition-colors"
                 >
                   <svg
@@ -169,6 +172,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/#blog"
+                  onClick={scrollToTop}
                   className="hover:text-blue-600 flex items-center transition-colors"
                 >
                   <svg
@@ -190,6 +194,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/contact"
+                  onClick={scrollToTop}
                   className="hover:text-blue-600 flex items-center transition-colors"
                 >
                   <svg
@@ -211,6 +216,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/sitemap"
+                  onClick={scrollToTop}
                   className="hover:text-blue-600 flex items-center transition-colors"
                 >
                   <svg
@@ -229,6 +235,94 @@ const Footer = () => {
                   Sitemap
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/selection-guide"
+                  onClick={scrollToTop}
+                  className="hover:text-blue-600 flex items-center transition-colors"
+                >
+                  <svg
+                    className="w-3 h-3 text-blue-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                  Selection & Sizing Guide
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/working-principle"
+                  onClick={scrollToTop}
+                  className="hover:text-blue-600 flex items-center transition-colors"
+                >
+                  <svg
+                    className="w-3 h-3 text-blue-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                  Working Principle & Physics
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/press-applications"
+                  onClick={scrollToTop}
+                  className="hover:text-blue-600 flex items-center transition-colors"
+                >
+                  <svg
+                    className="w-3 h-3 text-blue-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                  Press Applications
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/troubleshooting-guide"
+                  onClick={scrollToTop}
+                  className="hover:text-blue-600 flex items-center transition-colors"
+                >
+                  <svg
+                    className="w-3 h-3 text-blue-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                  Defect Troubleshooting
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -241,6 +335,7 @@ const Footer = () => {
               <li>
                 <Link
                   to={getProductLink("bar-coater-small-size")}
+                  onClick={scrollToTop}
                   className="hover:text-blue-600 flex items-start transition-colors"
                 >
                   <svg
@@ -262,6 +357,7 @@ const Footer = () => {
               <li>
                 <Link
                   to={getProductLink("bar-coater-medium-size")}
+                  onClick={scrollToTop}
                   className="hover:text-blue-600 flex items-start transition-colors"
                 >
                   <svg
@@ -283,6 +379,7 @@ const Footer = () => {
               <li>
                 <Link
                   to={getProductLink("bar-coater-large-size")}
+                  onClick={scrollToTop}
                   className="hover:text-blue-600 flex items-start transition-colors"
                 >
                   <svg
@@ -304,6 +401,7 @@ const Footer = () => {
               <li>
                 <Link
                   to={getProductLink("bar-coater-extra-large-size")}
+                  onClick={scrollToTop}
                   className="hover:text-blue-600 flex items-start transition-colors"
                 >
                   <svg
@@ -686,18 +784,21 @@ const Footer = () => {
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link
               to="/privacy-policy"
+              onClick={scrollToTop}
               className="hover:text-blue-600 transition-colors"
             >
               Privacy Policy
             </Link>
             <Link
               to="/terms-and-conditions"
+              onClick={scrollToTop}
               className="hover:text-blue-600 transition-colors"
             >
               Terms & Conditions
             </Link>
             <Link
               to="/shipping-policy"
+              onClick={scrollToTop}
               className="hover:text-blue-600 transition-colors"
             >
               Shipping Policy

@@ -4,6 +4,7 @@ import {
   Routes,
   Route,
   Navigate,
+  useLocation,
 } from "react-router-dom";
 import Home from "./pages/Home";
 import AboutUs from "./pages/AboutUs";
@@ -14,12 +15,29 @@ import TermsConditions from "./pages/TermsConditions";
 import ShippingPolicy from "./pages/ShippingPolicy";
 import ProductDetail from "./pages/ProductDetail";
 import Sitemap from "./pages/Sitemap";
+import SelectionGuide from "./pages/SelectionGuide";
+import WorkingPrinciple from "./pages/WorkingPrinciple";
+import PressApplications from "./pages/PressApplications";
+import TroubleshootingGuide from "./pages/TroubleshootingGuide";
 import CityPage from "./pages/CityPage";
 import CityProductPage from "./pages/CityProductPage";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import QuoteModal from "./components/common/QuoteModal";
 import { usePrefetchLocations } from "./services/api";
+
+import scrollToTop from "./utils/scrollToTop";
+
+// Auto-scroll to top on every route change
+const ScrollToTop = () => {
+  const { pathname, search } = useLocation();
+
+  useEffect(() => {
+    scrollToTop();
+  }, [pathname, search]);
+
+  return null;
+};
 
 // Admin
 import { AdminAuthProvider } from "./context/AdminAuthContext";
@@ -54,6 +72,7 @@ function App() {
   return (
     <AdminAuthProvider>
       <Router>
+        <ScrollToTop />
         <Routes>
           {/* ── Public routes ── */}
           <Route
@@ -125,6 +144,38 @@ function App() {
             element={
               <PublicLayout>
                 <ProductDetail />
+              </PublicLayout>
+            }
+          />
+          <Route
+            path="/selection-guide"
+            element={
+              <PublicLayout>
+                <SelectionGuide />
+              </PublicLayout>
+            }
+          />
+          <Route
+            path="/working-principle"
+            element={
+              <PublicLayout>
+                <WorkingPrinciple />
+              </PublicLayout>
+            }
+          />
+          <Route
+            path="/press-applications"
+            element={
+              <PublicLayout>
+                <PressApplications />
+              </PublicLayout>
+            }
+          />
+          <Route
+            path="/troubleshooting-guide"
+            element={
+              <PublicLayout>
+                <TroubleshootingGuide />
               </PublicLayout>
             }
           />

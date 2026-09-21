@@ -61,7 +61,14 @@ const CityPageSkeleton = () => (
 );
 
 const isInvalidSlug = (slug) =>
-  !slug || slug.includes(".") || slug === "robots" || slug === "sitemap";
+  !slug ||
+  slug.includes(".") ||
+  slug === "robots" ||
+  slug === "sitemap" ||
+  slug === "selection-guide" ||
+  slug === "working-principle" ||
+  slug === "press-applications" ||
+  slug === "troubleshooting-guide";
 
 const CityPage = () => {
   const { locationSlug } = useParams();
