@@ -170,12 +170,25 @@ const CityProductPage = () => {
     description: `${product.shortDescription} Manufactured and supplied by ImageTech Industries in ${location.name}, ${location.state}.`,
     brand: {
       "@type": "Brand",
-      "name": "ImageTech Industries",
+      name: "ImageTech Industries",
     },
-    areaServed: {
-      "@type": "AdministrativeArea",
-      name: `${location.name}, ${location.state}`,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "85",
     },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "INR",
+      price: "1200",
+      priceValidUntil: "2027-12-31",
+      availability: "https://schema.org/InStock",
+      itemCondition: "https://schema.org/NewCondition",
+      seller: {
+        "@type": "Organization",
+        name: "ImageTech Industries"
+      }
+    }
   };
 
   const faqSchema = {

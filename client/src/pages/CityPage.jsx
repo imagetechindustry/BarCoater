@@ -153,14 +153,27 @@ const CityPage = () => {
   const productSchema = {
     "@context": "https://schema.org/",
     "@type": "Product",
-    "name": "Bar Coaters",
+    "name": `Bar Coaters in ${locName}`,
     "image": "https://www.barcoater.com/heroimage.webp",
     "description": `Premium Bar Coaters available in ${locName}, ${locState}. Designed for laboratory testing, ink proofing, and precise wet film application.`,
     "brand": {
       "@type": "Brand",
       "name": "ImageTech Industries"
     },
-    "areaServed": locName
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "120"
+    },
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "INR",
+      "lowPrice": "950",
+      "highPrice": "4500",
+      "offerCount": "4",
+      "availability": "https://schema.org/InStock",
+      "priceValidUntil": "2027-12-31"
+    }
   };
 
   return (

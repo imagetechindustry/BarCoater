@@ -51,6 +51,15 @@ const Home = () => {
       "@type": "AggregateRating",
       "ratingValue": "4.9",
       "reviewCount": "120"
+    },
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "INR",
+      "lowPrice": "950",
+      "highPrice": "4500",
+      "offerCount": "4",
+      "availability": "https://schema.org/InStock",
+      "priceValidUntil": "2027-12-31"
     }
   };
 

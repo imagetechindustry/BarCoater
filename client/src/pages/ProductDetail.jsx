@@ -29,6 +29,23 @@ const ProductDetail = () => {
       "@type": "Brand",
       name: "ImageTech Industries",
     },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "85",
+    },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "INR",
+      price: "1200",
+      priceValidUntil: "2027-12-31",
+      availability: "https://schema.org/InStock",
+      itemCondition: "https://schema.org/NewCondition",
+      seller: {
+        "@type": "Organization",
+        name: "ImageTech Industries"
+      }
+    }
   };
 
   const faqSchema = {
