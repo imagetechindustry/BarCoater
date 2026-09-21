@@ -56,10 +56,9 @@ To use the Small Size Bar Coater, simply place your test substrate on a flat, ev
       { question: "How should I store my Small Bar Coater?", answer: "After cleaning with a solvent, store it in a dry place. Keeping it in a protective tube or rack prevents the wire from getting scratched." },
       { question: "Can this small rod bend during use?", answer: "No, the 6 mm stainless steel core is robust enough to stay perfectly straight under normal manual drawdown pressure." },
       { question: "Is the wire winding tight and gap-free?", answer: "Yes, our advanced manufacturing ensures the wire is wound extremely tight, providing flawless and consistent coating results every time." },
-      { question: "Do you ship Small Bar Coaters worldwide?", answer: "Yes, we securely pack and ship our precision bar coaters to laboratories and factories globally." }
     ],
-    metaTitle: "Small Size Bar Coaters | Laboratory Testing | ImageTech",
-    metaDescription: "Buy the best Small Size Bar Coaters. A precision coating tool for applying a controlled layer of ink, adhesive, and varnish."
+    metaTitle: "Small Size Bar Coater (No. 0) | Laboratory Wire Bar Coater | ImageTech",
+    metaDescription: "Buy Small Size Bar Coater (No. 0) for precise laboratory testing. Each small Bar Coater applies a uniform thin film layer of ink, paint, and adhesive. Order your Bar Coater with custom wire thickness today."
   },
   {
     id: "bar-coater-medium-size",
@@ -110,8 +109,8 @@ The Medium Size Mayer Rod is highly favored in the flexible packaging, cosmetics
       { question: "How many different coating thicknesses are available?", answer: "We offer a wide range of bar numbers. Just let us know your required wet film thickness in microns, and we will provide the correct gauge." },
       { question: "Do you supply these to the packaging industry?", answer: "Yes, flexible packaging manufacturers heavily rely on our Medium Bar Coaters for testing ink adhesion and lamination glues." }
     ],
-    metaTitle: "Medium Size Bar Coaters | Uniform Coating | ImageTech",
-    metaDescription: "Get consistent and repeatable results with our Medium Size Bar Coaters, designed for ink, paint, and adhesive testing."
+    metaTitle: "Medium Size Bar Coater (No. 1) | Precision Mayer Bar Coater | ImageTech",
+    metaDescription: "Get consistent results with our Medium Size Bar Coater (No. 1). Every medium Bar Coater ensures uniform coating evaluation for paints, inks, and varnishes. Inquire about Bar Coater pricing today."
   },
   {
     id: "bar-coater-large-size",
@@ -167,8 +166,8 @@ This 10 mm thick K bar provides superior stability, making it the go-to choice f
       { question: "Is it suitable for the textile industry?", answer: "Yes, textile labs use these large Mayer rods for testing fabric coatings, dyes, and specialized chemical finishes on wider cloth samples." },
       { question: "How do I know which bar number I need?", answer: "Tell our sales team the wet film thickness (in microns) you want to achieve, and we will recommend the exact bar number you need." }
     ],
-    metaTitle: "Big Size Bar Coaters | Uniform Application | ImageTech",
-    metaDescription: "Big Size Bar Coaters for applying uniform and smooth layers of coating. Ideal for wide test substrates and laboratory quality control."
+    metaTitle: "Big Size Bar Coater (No. 2) | Wire Wound Drawdown Bar Coater | ImageTech",
+    metaDescription: "Choose Big Size Bar Coater (No. 2) for wide panel testing. This heavy-duty Bar Coater delivers smooth, uniform film drawdown across large substrates. Get reliable Bar Coaters directly from the manufacturer."
   },
   {
     id: "bar-coater-extra-large-size",
@@ -218,7 +217,7 @@ Designed specifically for heavy industrial use and pilot coating plants, the 12 
       { question: "How do I safely clean such a large rod?", answer: "We recommend laying it flat in a solvent bath for a few minutes, then gently scrubbing along the grooves with a soft nylon brush." },
       { question: "Do you export the Extra Big Size Bar Coaters?", answer: "Yes, ImageTech Industries exports these premium industrial testing devices to laboratories and factories all over the world." }
     ],
-    metaTitle: "Extra Big Size Bar Coaters | Large Coverage | ImageTech",
-    metaDescription: "Extra Big Size Bar Coaters designed for wide panels and extensive laboratory evaluations. Ensure consistent coating across broad surfaces."
+    metaTitle: "Extra Big Size Bar Coater (No. 3) | Large Web Coating Bar Coater | ImageTech",
+    metaDescription: "Maximize coverage with our Extra Big Size Bar Coater (No. 3). This wide Bar Coater is engineered for industrial testing across broad substrate panels. Buy premium Bar Coaters with fast delivery."
   }
 ];

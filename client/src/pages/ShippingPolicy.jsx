@@ -17,8 +17,8 @@ const ShippingPolicy = () => {
   return (
     <>
       <SEO 
-        title="Shipping & Delivery Policy | ImageTech Industries"
-        description="Learn about the shipping and delivery policy at ImageTech Industries. We ship precision Bar Coaters and testing products domestically within India and internationally."
+        title="Shipping & Delivery Policy for Bar Coaters | ImageTech Industries"
+        description="Learn about the shipping and delivery policy for your Bar Coater orders from ImageTech Industries. We ensure secure packaging and prompt Bar Coater dispatch across India and worldwide. Track your Bar Coater shipment with verified logistics partners."
         schema={shippingSchema}
       />
       <div className="bg-slate-50 min-h-screen py-16 lg:py-24">

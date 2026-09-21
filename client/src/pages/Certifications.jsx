@@ -22,9 +22,9 @@ const Certifications = () => {
   return (
     <>
       <SEO 
-        title="ISO 9001:2015 Certifications | ImageTech Industries"
-        description="ImageTech Industries is an ISO 9001:2015 certified manufacturer of high-quality Bar Coaters. View our certifications and commitment to global standards."
-        keywords={['ISO 9001 certified manufacturer', 'bar coater quality standard', 'imagetech industries certification', 'bar coater manufacturing standards']}
+        title="Certified Bar Coater Manufacturer - ISO 9001:2015 | ImageTech Industries"
+        description="ImageTech Industries is an ISO 9001:2015 certified Bar Coater manufacturer committed to rigorous international quality benchmarks. Every precision Bar Coater undergoes strict dimensional testing and surface inspection for flawless laboratory coating results. Explore our certified Bar Coater standards and quality assurance processes."
+        keywords={['certified bar coater manufacturer', 'ISO 9001 bar coater', 'bar coater quality standards', 'precision bar coater inspection']}
         schema={certSchema}
       />
       <div className="flex flex-col min-h-screen">

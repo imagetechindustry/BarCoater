@@ -166,17 +166,17 @@ const CityPage = () => {
   return (
     <>
       <SEO
-        title={`Best Bar Coater Manufacturer in ${locName} | ImageTech Industries`}
-        description={`Looking for the best Bar Coaters in ${locName}, ${locState}? ImageTech Industries manufactures and supplies premium wire wound rods, K bars, and drawdown bars.`}
+        title={`Bar Coater Manufacturer in ${locName}, ${locState} | ImageTech Industries`}
+        description={`Looking for a high-precision Bar Coater in ${locName}, ${locState}? ImageTech Industries is a leading Bar Coater manufacturer supplying durable wire wound Bar Coaters for laboratory testing in ${locName}. Order your custom Bar Coaters with fast delivery across ${locName}.`}
         keywords={[
-          `Best Bar Coater in ${locName}`,
-          `Bar Coater Manufacturer in ${locName}`,
+          `Bar Coater in ${locName}`,
           `Bar Coaters in ${locName}`,
-          `Wire Wound Rod ${locState}`,
+          `Bar Coater Manufacturer in ${locName}`,
+          `Best Bar Coater in ${locName}`,
+          `Wire Wound Bar Coater ${locState}`,
+          `Mayer Bar Coater ${locName}`,
           'ImageTech Industries',
-          'Mayer Rod Supplier',
-          'Drawdown Bar in India',
-          'Laboratory Testing Equipment'
+          'Laboratory Testing Bar Coater'
         ]}
         schema={[orgSchema, productSchema]}
       />

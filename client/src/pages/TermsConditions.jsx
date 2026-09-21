@@ -17,8 +17,8 @@ const TermsConditions = () => {
   return (
     <>
       <SEO 
-        title="Terms and Conditions | ImageTech Industries"
-        description="Terms and conditions for using ImageTech Industries website and services. Learn about our policies regarding Bar Coater orders, intellectual property, and more."
+        title="Terms and Conditions - Bar Coater Orders | ImageTech Industries"
+        description="Read the terms and conditions governing Bar Coater purchases and services from ImageTech Industries. Review our policies regarding Bar Coater warranties, ordering guidelines, and customer terms."
         schema={termsSchema}
       />
       <div className="bg-slate-50 min-h-screen py-16 lg:py-24">

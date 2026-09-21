@@ -17,8 +17,8 @@ const PrivacyPolicy = () => {
   return (
     <>
       <SEO
-        title="Privacy Policy | ImageTech Industries"
-        description="Privacy policy for ImageTech Industries. Read how we handle and protect your personal information."
+        title="Privacy Policy - Bar Coater Inquiries | ImageTech Industries"
+        description="Read the privacy policy for ImageTech Industries regarding your Bar Coater inquiries and quote requests. We protect your confidential data whenever you order or inquire about our precision Bar Coaters."
         schema={privacySchema}
       />
       <div className="bg-slate-50 min-h-screen py-16 lg:py-24">

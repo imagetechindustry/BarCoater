@@ -44,9 +44,9 @@ const ContactUs = () => {
   return (
     <>
       <SEO
-        title="Contact Us | ImageTech Industries"
-        description="Get in touch with ImageTech Industries. We are the leading manufacturer of Bar Coaters in Delhi, India. Contact us for sales, support, and custom inquiries."
-        keywords={['contact imagetech industries', 'bar coater manufacturer contact', 'buy bar coater in delhi', 'testing device inquiries']}
+        title="Contact Bar Coater Manufacturer | ImageTech Industries"
+        description="Contact ImageTech Industries for all your Bar Coater inquiries, custom sizes, and competitive price quotes. Our dedicated technical team assists you in selecting the ideal Bar Coater for your specific coating and laboratory needs. Get in touch today for fast Bar Coater delivery across Delhi and pan-India."
+        keywords={['contact bar coater manufacturer', 'buy bar coater', 'bar coater price quote', 'bar coater supplier contact', 'bar coaters in delhi']}
         schema={contactSchema}
       />
       <div className="flex flex-col min-h-screen">

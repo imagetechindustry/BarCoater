@@ -195,7 +195,7 @@ const CityProductPage = () => {
     <>
       <SEO
         title={`${product.name} in ${location.name}, ${location.state} | ImageTech Industries`}
-        description={`Looking for ${product.name} in ${location.name}, ${location.state}? ImageTech Industries manufactures and supplies high-performance Bar Coaters with fast delivery.`}
+        description={`Looking for ${product.name} in ${location.name}, ${location.state}? ImageTech Industries manufactures precision wire wound Bar Coaters for laboratory testing in ${location.name}. Order your ${product.name} today with fast direct delivery across ${location.name}, ${location.state}.`}
         image={
           images[0]?.startsWith("http")
             ? images[0]

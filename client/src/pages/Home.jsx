@@ -57,9 +57,9 @@ const Home = () => {
   return (
     <>
       <SEO 
-        title="Best Bar Coaters in India | ImageTech Industries"
-        description="Looking for the best Bar Coaters in India? ImageTech Industries supplies premium Small Size and Big Size Bar Coaters for flawless coating evaluation."
-        keywords={['best bar coaters in india', 'bar coaters supplier', 'small size bar coater', 'big size bar coater', 'laboratory bar coater']}
+        title="Bar Coater - Best Bar Coaters Manufacturer in India | ImageTech Industries"
+        description="Looking for a high-precision Bar Coater in India? ImageTech Industries is a premier Bar Coater manufacturer supplying durable wire wound Bar Coaters for laboratory testing. Order your custom Bar Coater today with fast pan-India delivery."
+        keywords={['bar coater', 'bar coaters', 'best bar coater in india', 'bar coater manufacturer', 'wire wound bar coater', 'laboratory bar coater', 'mayer bar coater', 'drawdown bar coater']}
         schema={[orgSchema, productSchema]}
       />
       <main className="flex flex-col">

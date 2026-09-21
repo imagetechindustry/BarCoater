@@ -28,9 +28,9 @@ const AboutUs = () => {
   return (
     <>
       <SEO 
-        title="About Us | ImageTech Industries"
-        description="Learn about ImageTech Industries, a trusted manufacturer of Bar Coaters in Delhi, India. Discover our history, manufacturing capabilities, and global presence."
-        keywords={['about imagetech industries', 'bar coater manufacturer history', 'best bar coater in delhi', 'testing device manufacturer']}
+        title="Bar Coater Manufacturer in India - About ImageTech Industries"
+        description="Learn about ImageTech Industries, India's trusted Bar Coater manufacturer with over 30 years of engineering excellence. We specialize in manufacturing precision Bar Coaters for laboratory testing and industrial coating applications. Discover our commitment to producing the highest quality Bar Coaters for printing, packaging, and R&D worldwide."
+        keywords={['bar coater manufacturer', 'about bar coater manufacturer', 'bar coater supplier in india', 'precision bar coater company', 'laboratory bar coater factory', 'best bar coater in delhi']}
         schema={aboutSchema}
       />
       <main>

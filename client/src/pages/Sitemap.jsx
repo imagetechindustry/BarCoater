@@ -69,8 +69,9 @@ const Sitemap = () => {
   return (
     <>
       <SEO
-        title="Sitemap - Locations & Cities | ImageTech Industries"
-        description="Browse all nationwide distribution locations and cities for the best Bar Coaters by ImageTech Industries in India."
+        title="Bar Coater Locations & Distribution Sitemap | ImageTech Industries"
+        description="Browse all nationwide Bar Coater distribution locations and industrial hubs served by ImageTech Industries across India. Find your local city to source precision Bar Coaters for laboratory testing and coating applications. We ensure quick Bar Coater supply and technical support in every major Indian city."
+        keywords={['bar coater locations', 'bar coater sitemap', 'bar coater suppliers india', 'buy bar coater near me']}
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-10">
