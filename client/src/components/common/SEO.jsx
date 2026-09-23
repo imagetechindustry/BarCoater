@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 const SITE_URL = 'https://www.barcoater.com';
 const SITE_NAME = 'ImageTech Industries';
-const DEFAULT_IMAGE = `${SITE_URL}/heroimage.webp`;
+const DEFAULT_IMAGE = `${SITE_URL}/logo.png`;
 const TWITTER_HANDLE = '@ImageTech_Ind'; // Placeholder
 
 /**
