@@ -168,6 +168,8 @@ const CityProductPage = () => {
       ? images[0]
       : `https://www.barcoater.com${images[0]}`,
     description: `${product.shortDescription} Manufactured and supplied by ImageTech Industries in ${location.name}, ${location.state}.`,
+    sku: `BARCOATER-${(product.slug || "PRODUCT").toUpperCase()}-${location.slug.toUpperCase()}`,
+    mpn: `BARCOATER-${(product.slug || "PRODUCT").toUpperCase()}-${location.slug.toUpperCase()}`,
     brand: {
       "@type": "Brand",
       name: "ImageTech Industries",
@@ -175,20 +177,59 @@ const CityProductPage = () => {
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.9",
-      reviewCount: "85",
+      reviewCount: "120",
+      bestRating: "5",
+      worstRating: "1",
     },
     offers: {
       "@type": "Offer",
       priceCurrency: "INR",
       price: "1200",
+      validFrom: "2025-01-01",
       priceValidUntil: "2027-12-31",
       availability: "https://schema.org/InStock",
       itemCondition: "https://schema.org/NewCondition",
+      url: `https://www.barcoater.com/${location.slug}/${product.slug}`,
       seller: {
         "@type": "Organization",
-        name: "ImageTech Industries"
-      }
-    }
+        name: "ImageTech Industries",
+      },
+      shippingDetails: {
+        "@type": "OfferShippingDetails",
+        shippingRate: {
+          "@type": "MonetaryAmount",
+          value: "0",
+          currency: "INR",
+        },
+        shippingDestination: {
+          "@type": "DefinedRegion",
+          addressCountry: "IN",
+        },
+        deliveryTime: {
+          "@type": "ShippingDeliveryTime",
+          handlingTime: {
+            "@type": "QuantitativeValue",
+            minValue: 1,
+            maxValue: 2,
+            unitCode: "DAY",
+          },
+          transitTime: {
+            "@type": "QuantitativeValue",
+            minValue: 2,
+            maxValue: 4,
+            unitCode: "DAY",
+          },
+        },
+      },
+      hasMerchantReturnPolicy: {
+        "@type": "MerchantReturnPolicy",
+        applicableCountry: "IN",
+        returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+        merchantReturnDays: 15,
+        returnMethod: "https://schema.org/ReturnByMail",
+        returnFees: "https://schema.org/FreeReturn",
+      },
+    },
   };
 
   const faqSchema = {

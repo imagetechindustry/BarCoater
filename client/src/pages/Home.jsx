@@ -47,6 +47,8 @@ const Home = () => {
     "name": "Bar Coaters",
     "image": "https://www.barcoater.com/heroimage.webp",
     "description": "The best Bar Coaters in India. Premium Bar Coaters for laboratory testing, coating application, and quality control.",
+    "sku": "BARCOATER-MAIN",
+    "mpn": "BARCOATER-MAIN",
     "brand": {
       "@type": "Brand",
       "name": "ImageTech Industries"
@@ -54,16 +56,58 @@ const Home = () => {
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.9",
-      "reviewCount": "120"
+      "reviewCount": "120",
+      "bestRating": "5",
+      "worstRating": "1"
     },
     "offers": {
-      "@type": "AggregateOffer",
+      "@type": "Offer",
       "priceCurrency": "INR",
-      "lowPrice": "950",
-      "highPrice": "4500",
-      "offerCount": "4",
+      "price": "950",
+      "validFrom": "2025-01-01",
+      "priceValidUntil": "2027-12-31",
       "availability": "https://schema.org/InStock",
-      "priceValidUntil": "2027-12-31"
+      "itemCondition": "https://schema.org/NewCondition",
+      "url": "https://www.barcoater.com/",
+      "seller": {
+        "@type": "Organization",
+        "name": "ImageTech Industries"
+      },
+      "shippingDetails": {
+        "@type": "OfferShippingDetails",
+        "shippingRate": {
+          "@type": "MonetaryAmount",
+          "value": "0",
+          "currency": "INR"
+        },
+        "shippingDestination": {
+          "@type": "DefinedRegion",
+          "addressCountry": "IN"
+        },
+        "deliveryTime": {
+          "@type": "ShippingDeliveryTime",
+          "handlingTime": {
+            "@type": "QuantitativeValue",
+            "minValue": 1,
+            "maxValue": 2,
+            "unitCode": "DAY"
+          },
+          "transitTime": {
+            "@type": "QuantitativeValue",
+            "minValue": 2,
+            "maxValue": 4,
+            "unitCode": "DAY"
+          }
+        }
+      },
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "applicableCountry": "IN",
+        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+        "merchantReturnDays": 15,
+        "returnMethod": "https://schema.org/ReturnByMail",
+        "returnFees": "https://schema.org/FreeReturn"
+      }
     }
   };
 

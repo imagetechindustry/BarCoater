@@ -163,6 +163,8 @@ const CityPage = () => {
     "name": `Bar Coaters in ${locName}`,
     "image": "https://www.barcoater.com/heroimage.webp",
     "description": `Premium Bar Coaters available in ${locName}, ${locState}. Designed for laboratory testing, ink proofing, and precise wet film application.`,
+    "sku": `BARCOATER-${locationSlug.toUpperCase()}`,
+    "mpn": `BARCOATER-${locationSlug.toUpperCase()}`,
     "brand": {
       "@type": "Brand",
       "name": "ImageTech Industries"
@@ -170,16 +172,58 @@ const CityPage = () => {
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.9",
-      "reviewCount": "120"
+      "reviewCount": "120",
+      "bestRating": "5",
+      "worstRating": "1"
     },
     "offers": {
-      "@type": "AggregateOffer",
+      "@type": "Offer",
       "priceCurrency": "INR",
-      "lowPrice": "950",
-      "highPrice": "4500",
-      "offerCount": "4",
+      "price": "950",
+      "validFrom": "2025-01-01",
+      "priceValidUntil": "2027-12-31",
       "availability": "https://schema.org/InStock",
-      "priceValidUntil": "2027-12-31"
+      "itemCondition": "https://schema.org/NewCondition",
+      "url": `https://www.barcoater.com/${locationSlug}`,
+      "seller": {
+        "@type": "Organization",
+        "name": "ImageTech Industries"
+      },
+      "shippingDetails": {
+        "@type": "OfferShippingDetails",
+        "shippingRate": {
+          "@type": "MonetaryAmount",
+          "value": "0",
+          "currency": "INR"
+        },
+        "shippingDestination": {
+          "@type": "DefinedRegion",
+          "addressCountry": "IN"
+        },
+        "deliveryTime": {
+          "@type": "ShippingDeliveryTime",
+          "handlingTime": {
+            "@type": "QuantitativeValue",
+            "minValue": 1,
+            "maxValue": 2,
+            "unitCode": "DAY"
+          },
+          "transitTime": {
+            "@type": "QuantitativeValue",
+            "minValue": 2,
+            "maxValue": 4,
+            "unitCode": "DAY"
+          }
+        }
+      },
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "applicableCountry": "IN",
+        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+        "merchantReturnDays": 15,
+        "returnMethod": "https://schema.org/ReturnByMail",
+        "returnFees": "https://schema.org/FreeReturn"
+      }
     }
   };
 

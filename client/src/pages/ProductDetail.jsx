@@ -25,6 +25,8 @@ const ProductDetail = () => {
     name: product.name,
     image: `https://www.barcoater.com${product.images[0]}`,
     description: product.shortDescription,
+    sku: `BARCOATER-${(product.slug || product.id || "PRODUCT").toUpperCase()}`,
+    mpn: `BARCOATER-${(product.slug || product.id || "PRODUCT").toUpperCase()}`,
     brand: {
       "@type": "Brand",
       name: "ImageTech Industries",
@@ -32,20 +34,59 @@ const ProductDetail = () => {
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.9",
-      reviewCount: "85",
+      reviewCount: "120",
+      bestRating: "5",
+      worstRating: "1",
     },
     offers: {
       "@type": "Offer",
       priceCurrency: "INR",
       price: "1200",
+      validFrom: "2025-01-01",
       priceValidUntil: "2027-12-31",
       availability: "https://schema.org/InStock",
       itemCondition: "https://schema.org/NewCondition",
+      url: `https://www.barcoater.com/products/${product.slug}`,
       seller: {
         "@type": "Organization",
-        name: "ImageTech Industries"
-      }
-    }
+        name: "ImageTech Industries",
+      },
+      shippingDetails: {
+        "@type": "OfferShippingDetails",
+        shippingRate: {
+          "@type": "MonetaryAmount",
+          value: "0",
+          currency: "INR",
+        },
+        shippingDestination: {
+          "@type": "DefinedRegion",
+          addressCountry: "IN",
+        },
+        deliveryTime: {
+          "@type": "ShippingDeliveryTime",
+          handlingTime: {
+            "@type": "QuantitativeValue",
+            minValue: 1,
+            maxValue: 2,
+            unitCode: "DAY",
+          },
+          transitTime: {
+            "@type": "QuantitativeValue",
+            minValue: 2,
+            maxValue: 4,
+            unitCode: "DAY",
+          },
+        },
+      },
+      hasMerchantReturnPolicy: {
+        "@type": "MerchantReturnPolicy",
+        applicableCountry: "IN",
+        returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+        merchantReturnDays: 15,
+        returnMethod: "https://schema.org/ReturnByMail",
+        returnFees: "https://schema.org/FreeReturn",
+      },
+    },
   };
 
   const faqSchema = {
