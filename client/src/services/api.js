@@ -1,6 +1,8 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from "@tanstack/react-query";
+import { productsData } from "../data/products";
 
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+const IMAGETECH_API_URL = import.meta.env.VITE_IMAGETECH_API_URL || 'https://api.imagetechindustries.com/api';
 const SITE_DOMAIN = import.meta.env.VITE_SITE_DOMAIN || "barcoater.com";
 
 /**
@@ -465,6 +467,233 @@ export const adminUploadImage = async (token, file) => {
   return data;
 };
 
+/* ── Product API Functions (ImageTech Backend) ── */
+
+/**
+ * Helper to strip HTML tags from a string
+ */
+const stripHtml = (html) => {
+  if (!html) return "";
+  return html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+};
+
+/**
+ * Helper to extract overview paragraphs from product HTML longDesc
+ */
+const extractOverview = (longDesc, shortDesc) => {
+  if (!longDesc) return shortDesc || "";
+  const matches = [...longDesc.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)]
+    .map((m) => stripHtml(m[1]))
+    .filter(Boolean);
+  if (matches.length > 0) {
+    return matches.slice(0, 2).join("\n\n");
+  }
+  return shortDesc || "";
+};
+
+/**
+ * Helper to extract applications from product HTML longDesc
+ */
+const extractApplications = (longDesc, fallback) => {
+  if (!longDesc) return fallback || "";
+  const appMatch = longDesc.match(/<h3>Applications<\/h3>\s*<ul[^>]*>([\s\S]*?)<\/ul>/i);
+  if (appMatch) {
+    const items = [...appMatch[1].matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)]
+      .map((m) => stripHtml(m[1]))
+      .filter(Boolean);
+    if (items.length > 0) return items.join(", ") + ".";
+  }
+  return fallback || "Laboratory Coating Tests, Ink Testing, Paint and Coating Evaluation, Adhesive Testing, Varnish Testing, Printing Industry Quality Control, Packaging Material Testing, Research and Development.";
+};
+
+/**
+ * Maps ImageTech backend product schema to the client UI schema
+ * @param {Object} p - API Product object
+ * @param {Object|null} fallbackProduct - Local fallback product
+ * @returns {Object} Mapped product
+ */
+export const mapApiProductToClient = (p, fallbackProduct = null) => {
+  if (!p && !fallbackProduct) return null;
+
+  // Resolve canonical client slug vs API slug
+  const rawSlug = p?.slug || fallbackProduct?.slug || "";
+  const clientSlug =
+    rawSlug === "bar-coaters-small-size"
+      ? "bar-coater-small-size"
+      : rawSlug === "bar-coaters-big-size"
+      ? "bar-coater-large-size"
+      : rawSlug;
+
+  const fb =
+    fallbackProduct ||
+    productsData.find((item) => item.slug === clientSlug || item.slug === rawSlug) ||
+    null;
+
+  const title = p?.title || p?.name || fb?.name || "Bar Coater";
+  const shortDesc = p?.shortDesc || p?.shortDescription || fb?.shortDescription || "";
+  const longDesc = p?.longDesc || fb?.detailedDescription || shortDesc;
+
+  return {
+    _id: p?._id || fb?.id || clientSlug,
+    id: clientSlug,
+    slug: clientSlug,
+    apiSlug: rawSlug,
+    name: fb?.name || title,
+    title,
+    shortDescription: shortDesc,
+    shortDesc,
+    externalLink:
+      p?.externalLink ||
+      fb?.externalLink ||
+      `https://www.imagetechindustries.com/products/${p?.slug || clientSlug}`,
+    images:
+      p?.images && p.images.length > 0
+        ? p.images
+        : fb?.images || ["/BARCOATER/bar-coater-no-0/143.jpg"],
+    overview: fb?.overview || extractOverview(p?.longDesc, shortDesc),
+    detailedDescription: fb?.detailedDescription || longDesc,
+    longDesc: p?.longDesc || longDesc,
+    category: p?.category || { name: "Bar Coaters", slug: "bar-coaters" },
+    infoBoxes:
+      p?.infoBoxes && p.infoBoxes.length > 0
+        ? p.infoBoxes
+        : [
+            { title: "Rod Diameter", value: "6 mm - 10 mm", icon: "Settings" },
+            { title: "Application", value: "Coating & Lab Testing", icon: "Layout" },
+            { title: "Customization", value: "Wire Wound Gauges", icon: "Maximize" },
+            { title: "Supply", value: "All India Delivery", icon: "Truck" },
+          ],
+    overviewFeatures:
+      p?.overviewFeatures && p.overviewFeatures.length > 0
+        ? p.overviewFeatures
+        : (fb?.keyFeatures || []).map((kf) => {
+            const parts = kf.split(" for ");
+            return {
+              title: parts[0] || kf,
+              desc: parts[1] ? `Engineered for ${parts[1]}` : kf,
+              icon: "Target",
+            };
+          }),
+    keyFeatures:
+      p?.features && p.features.length > 0
+        ? p.features
+        : p?.overviewFeatures && p.overviewFeatures.length > 0
+        ? p.overviewFeatures.map((f) => (f.desc ? `${f.title}: ${f.desc}` : f.title))
+        : fb?.keyFeatures || [],
+    features:
+      p?.features && p.features.length > 0
+        ? p.features
+        : fb?.keyFeatures || [],
+    applications: extractApplications(p?.longDesc, fb?.applications),
+    specifications:
+      p?.specifications && p.specifications.length > 0
+        ? p.specifications
+        : fb?.specifications || [],
+    faqs:
+      p?.faqs && p.faqs.length > 0
+        ? p.faqs
+        : fb?.faqs || [],
+    metaTitle: p?.seoTitle || fb?.metaTitle || `${title} | ImageTech Industries`,
+    metaDescription: p?.seoDescription || fb?.metaDescription || shortDesc,
+    keywords:
+      typeof p?.seoKeywords === "string"
+        ? p.seoKeywords.split(",").map((k) => k.trim()).filter(Boolean)
+        : Array.isArray(p?.seoKeywords)
+        ? p.seoKeywords
+        : fb?.keywords || ["bar coater", title, "ImageTech Industries"],
+    ratingValue: p?.ratingValue || fb?.ratingValue || "4.9",
+    reviewCount: p?.reviewCount || fb?.reviewCount || "120",
+  };
+};
+
+/**
+ * Fetch all bar coater products directly from ImageTech API with fallback
+ * @param {string} category
+ * @returns {Promise<Array>}
+ */
+export const fetchProducts = async (category = "bar-coaters") => {
+  try {
+    const res = await fetch(`${IMAGETECH_API_URL}/products`);
+    if (!res.ok) {
+      throw new Error(`Failed to fetch products from ImageTech API: ${res.status}`);
+    }
+    const allProducts = await res.json();
+    if (!Array.isArray(allProducts)) {
+      throw new Error("Invalid API response format for products");
+    }
+
+    // Filter products for Bar Coaters category
+    const bcApiProducts = allProducts.filter((p) => {
+      const catSlug = p.category?.slug || (typeof p.category === "string" ? p.category : "");
+      const catName = p.category?.name || "";
+      return (
+        catSlug === category ||
+        catSlug.includes("bar-coater") ||
+        catName.toLowerCase().includes("bar coater") ||
+        (p.slug && p.slug.includes("bar-coater"))
+      );
+    });
+
+    const mappedApiProducts = bcApiProducts.map((p) => mapApiProductToClient(p));
+    const apiSlugs = new Set(mappedApiProducts.map((p) => p.slug));
+
+    // Preserve static products from productsData not yet present in the live API DB
+    const missingFallbackProducts = productsData
+      .filter((p) => !apiSlugs.has(p.slug))
+      .map((p) => mapApiProductToClient(null, p));
+
+    return [...mappedApiProducts, ...missingFallbackProducts];
+  } catch (error) {
+    console.warn("ImageTech API fetch failed, falling back to local productsData:", error);
+    return productsData.map((p) => mapApiProductToClient(null, p));
+  }
+};
+
+/**
+ * Fetch a single product by slug directly from ImageTech API with fallback
+ * @param {string} slug
+ * @returns {Promise<Object>}
+ */
+export const fetchProductBySlug = async (slug) => {
+  if (!slug) throw new Error("Product slug is required");
+
+  // Potential slug variations (handle singular/plural/big/large)
+  const candidateSlugs = [
+    slug,
+    slug.replace(/^bar-coater-/, "bar-coaters-"),
+    slug.replace(/^bar-coaters-/, "bar-coater-"),
+    slug.replace("large-size", "big-size"),
+    slug.replace("big-size", "large-size"),
+    slug.replace("bar-coater-large-size", "bar-coaters-big-size"),
+  ];
+
+  for (const candidate of candidateSlugs) {
+    try {
+      const res = await fetch(`${IMAGETECH_API_URL}/products/${candidate}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.slug) {
+          return mapApiProductToClient(data);
+        }
+      }
+    } catch {
+      // Continue to next candidate
+    }
+  }
+
+  // Fallback to local productsData
+  const localFallback = productsData.find(
+    (p) => p.slug === slug || candidateSlugs.includes(p.slug)
+  );
+  if (localFallback) {
+    return mapApiProductToClient(null, localFallback);
+  }
+
+  const err = new Error(`Product not found: ${slug}`);
+  err.status = 404;
+  throw err;
+};
+
 /* ═══════════════════════════════════════════════════════════════════════════
    2. TANSTACK QUERY KEYS
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -472,6 +701,8 @@ export const adminUploadImage = async (token, file) => {
 export const QUERY_KEYS = {
   locations: ["locations"],
   location: (slug) => ["location", slug],
+  products: (category) => ["products", category || "bar-coaters"],
+  product: (slug) => ["product", slug],
   adminStats: ["admin", "stats"],
   adminSubmissions: (params) => ["admin", "submissions", params],
   adminLocations: ["admin", "locations"],
@@ -874,5 +1105,81 @@ export const useAdminTogglePublishBlog = (token, options = {}) => {
     },
     ...options,
   });
+};
+
+/* ── Product Hooks (ImageTech Backend) ── */
+
+/** Hook: Fetch and cache bar coater products directly from API with 0ms fallback */
+export const useProducts = (category = "bar-coaters", options = {}) => {
+  const queryClient = useQueryClient();
+  return useQuery({
+    queryKey: QUERY_KEYS.products(category),
+    queryFn: async () => {
+      const data = await fetchProducts(category);
+      if (Array.isArray(data)) {
+        // Automatically seed query cache for individual products for 0ms transitions
+        data.forEach((prod) => {
+          if (prod && prod.slug) {
+            queryClient.setQueryData(QUERY_KEYS.product(prod.slug), prod);
+          }
+        });
+      }
+      return data;
+    },
+    initialData: () => {
+      return productsData.map((p) => mapApiProductToClient(null, p));
+    },
+    staleTime: 1000 * 60 * 15, // 15 minutes fresh
+    ...options,
+  });
+};
+
+/** Hook: Fetch and cache a single product with 0ms fallback */
+export const useProduct = (slug, options = {}) => {
+  const queryClient = useQueryClient();
+  return useQuery({
+    queryKey: QUERY_KEYS.product(slug),
+    queryFn: () => fetchProductBySlug(slug),
+    initialData: () => {
+      if (!slug) return undefined;
+      // 1. Direct hit from single product cache
+      const cachedDirect = queryClient.getQueryData(QUERY_KEYS.product(slug));
+      if (cachedDirect) return cachedDirect;
+
+      // 2. Derive from all-products query cache
+      const allProducts = queryClient.getQueryData(QUERY_KEYS.products("bar-coaters"));
+      if (Array.isArray(allProducts)) {
+        const found = allProducts.find((p) => p.slug === slug || p.id === slug);
+        if (found) return found;
+      }
+
+      // 3. Fallback to local productsData for 0ms render
+      const local = productsData.find((p) => p.slug === slug || p.id === slug);
+      if (local) return mapApiProductToClient(null, local);
+
+      return undefined;
+    },
+    initialDataUpdatedAt: () => {
+      return (
+        queryClient.getQueryState(QUERY_KEYS.product(slug))?.dataUpdatedAt ||
+        queryClient.getQueryState(QUERY_KEYS.products("bar-coaters"))?.dataUpdatedAt
+      );
+    },
+    enabled: Boolean(slug),
+    staleTime: 1000 * 60 * 15, // 15 minutes fresh
+    ...options,
+  });
+};
+
+/** Hook: Prefetch a single product on hover */
+export const usePrefetchProduct = () => {
+  const queryClient = useQueryClient();
+  return (slug) => {
+    if (!slug) return;
+    queryClient.prefetchQuery({
+      queryKey: QUERY_KEYS.product(slug),
+      queryFn: () => fetchProductBySlug(slug),
+    });
+  };
 };
 

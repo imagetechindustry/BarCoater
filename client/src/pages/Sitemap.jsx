@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { useLocations, usePrefetchLocation } from "../services/api";
+import { useLocations, usePrefetchLocation, useProducts } from "../services/api";
 import SEO from "../components/common/SEO";
 
 const SitemapSkeleton = () => (
@@ -39,6 +39,7 @@ const Sitemap = () => {
   }, []);
 
   const { data: locations = [], isLoading } = useLocations();
+  const { data: products = [] } = useProducts();
 
   // Instant filter by city, state, or slug
   const filteredLocations = useMemo(() => {
@@ -181,6 +182,40 @@ const Sitemap = () => {
             )}
           </div>
         )}
+
+        {/* Our Products Directory Section */}
+        <div className="mb-12 bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+          <div className="bg-gradient-to-r from-blue-50 to-white border-b border-blue-100 px-6 py-4 flex items-center justify-between">
+            <div>
+              <h2 className="text-xl font-bold text-slate-900">Our Bar Coater Products Directory</h2>
+              <p className="text-xs text-slate-500 mt-0.5">Wire wound bar coaters for laboratory drawdowns and precision ink proofing</p>
+            </div>
+            <span className="text-blue-600 bg-white rounded-full px-3 py-1 text-xs font-bold border border-blue-100 shadow-sm">
+              {products.length} Products
+            </span>
+          </div>
+          <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {products.map((prod) => (
+              <Link
+                key={prod.id || prod.slug}
+                to={`/products/${prod.slug}`}
+                className="group flex flex-col justify-between bg-slate-50 border border-slate-200 hover:border-blue-500 text-slate-800 hover:text-blue-700 font-medium p-4 rounded-2xl transition-all duration-300 hover:shadow-md"
+              >
+                <div>
+                  <h3 className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-1 text-sm">
+                    {prod.name || prod.title}
+                  </h3>
+                  <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                    {prod.shortDescription || prod.shortDesc}
+                  </p>
+                </div>
+                <span className="text-xs font-bold text-blue-600 mt-3 flex items-center gap-1">
+                  View Product &rarr;
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
 
         {/* Technical Guides & Engineering Resources Section */}
         <div className="mb-12 bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
