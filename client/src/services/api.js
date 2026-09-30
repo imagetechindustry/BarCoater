@@ -507,6 +507,19 @@ const extractApplications = (longDesc, fallback) => {
 };
 
 /**
+ * Helper to resolve icon for info boxes
+ */
+const resolveBoxIcon = (title, icon) => {
+  if (icon && typeof icon === "string" && icon.trim()) return icon;
+  const t = (title || "").toLowerCase();
+  if (t.includes("diameter") || t.includes("number")) return "Settings";
+  if (t.includes("length") || t.includes("size")) return "Maximize";
+  if (t.includes("type") || t.includes("application")) return "Layout";
+  if (t.includes("supply") || t.includes("delivery")) return "Truck";
+  return "Settings";
+};
+
+/**
  * Maps ImageTech backend product schema to the client UI schema
  * @param {Object} p - API Product object
  * @param {Object|null} fallbackProduct - Local fallback product
@@ -529,6 +542,7 @@ export const mapApiProductToClient = (p, fallbackProduct = null) => {
     productsData.find((item) => item.slug === clientSlug || item.slug === rawSlug) ||
     null;
 
+  const isFromApi = Boolean(p && (p.title || p.name));
   const title = p?.title || p?.name || fb?.name || "Bar Coater";
   const shortDesc = p?.shortDesc || p?.shortDescription || fb?.shortDescription || "";
   const longDesc = p?.longDesc || fb?.detailedDescription || shortDesc;
@@ -538,7 +552,7 @@ export const mapApiProductToClient = (p, fallbackProduct = null) => {
     id: clientSlug,
     slug: clientSlug,
     apiSlug: rawSlug,
-    name: fb?.name || title,
+    name: title,
     title,
     shortDescription: shortDesc,
     shortDesc,
@@ -550,13 +564,18 @@ export const mapApiProductToClient = (p, fallbackProduct = null) => {
       p?.images && p.images.length > 0
         ? p.images
         : fb?.images || ["/BARCOATER/bar-coater-no-0/143.jpg"],
-    overview: fb?.overview || extractOverview(p?.longDesc, shortDesc),
-    detailedDescription: fb?.detailedDescription || longDesc,
-    longDesc: p?.longDesc || longDesc,
+    overview: isFromApi
+      ? extractOverview(p?.longDesc, shortDesc) || fb?.overview || shortDesc
+      : fb?.overview || extractOverview(p?.longDesc, shortDesc),
+    detailedDescription: longDesc,
+    longDesc: isFromApi && p?.longDesc ? p.longDesc : (fb?.longDesc || null),
     category: p?.category || { name: "Bar Coaters", slug: "bar-coaters" },
     infoBoxes:
       p?.infoBoxes && p.infoBoxes.length > 0
-        ? p.infoBoxes
+        ? p.infoBoxes.map((box) => ({
+            ...box,
+            icon: resolveBoxIcon(box.title, box.icon),
+          }))
         : [
             { title: "Rod Diameter", value: "6 mm - 10 mm", icon: "Settings" },
             { title: "Application", value: "Coating & Lab Testing", icon: "Layout" },
@@ -565,7 +584,10 @@ export const mapApiProductToClient = (p, fallbackProduct = null) => {
           ],
     overviewFeatures:
       p?.overviewFeatures && p.overviewFeatures.length > 0
-        ? p.overviewFeatures
+        ? p.overviewFeatures.map((f) => ({
+            ...f,
+            icon: f.icon || "Target",
+          }))
         : (fb?.keyFeatures || []).map((kf) => {
             const parts = kf.split(" for ");
             return {
@@ -649,6 +671,16 @@ export const fetchProducts = async (category = "bar-coaters") => {
   }
 };
 
+/** Known slug aliases mapping client routes to backend database slugs */
+const SLUG_ALIASES = {
+  "bar-coater-large-size": ["bar-coaters-big-size", "bar-coater-large-size"],
+  "bar-coaters-big-size": ["bar-coaters-big-size", "bar-coater-large-size"],
+  "bar-coater-small-size": ["bar-coaters-small-size", "bar-coater-small-size"],
+  "bar-coaters-small-size": ["bar-coaters-small-size", "bar-coater-small-size"],
+  "bar-coater-medium-size": ["bar-coaters-medium-size", "bar-coater-medium-size"],
+  "bar-coater-extra-large-size": ["bar-coaters-extra-large-size", "bar-coater-extra-large-size"],
+};
+
 /**
  * Fetch a single product by slug directly from ImageTech API with fallback
  * @param {string} slug
@@ -657,14 +689,12 @@ export const fetchProducts = async (category = "bar-coaters") => {
 export const fetchProductBySlug = async (slug) => {
   if (!slug) throw new Error("Product slug is required");
 
-  // Potential slug variations (handle singular/plural/big/large)
-  const candidateSlugs = [
+  // Determine priority candidate slugs (exact alias match first)
+  const candidateSlugs = SLUG_ALIASES[slug] || [
     slug,
+    slug.replace("large-size", "big-size"),
     slug.replace(/^bar-coater-/, "bar-coaters-"),
     slug.replace(/^bar-coaters-/, "bar-coater-"),
-    slug.replace("large-size", "big-size"),
-    slug.replace("big-size", "large-size"),
-    slug.replace("bar-coater-large-size", "bar-coaters-big-size"),
   ];
 
   for (const candidate of candidateSlugs) {
@@ -1129,7 +1159,15 @@ export const useProducts = (category = "bar-coaters", options = {}) => {
     initialData: () => {
       return productsData.map((p) => mapApiProductToClient(null, p));
     },
-    staleTime: 1000 * 60 * 15, // 15 minutes fresh
+    initialDataUpdatedAt: () => {
+      const list = queryClient.getQueryState(QUERY_KEYS.products(category));
+      if (list?.dataUpdatedAt && list?.status === "success") {
+        return list.dataUpdatedAt;
+      }
+      return 0; // Triggers immediate background refetch from live API
+    },
+    staleTime: 1000 * 60 * 5, // 5 minutes fresh once fetched from API
+    refetchOnMount: true,
     ...options,
   });
 };
@@ -1160,13 +1198,19 @@ export const useProduct = (slug, options = {}) => {
       return undefined;
     },
     initialDataUpdatedAt: () => {
-      return (
-        queryClient.getQueryState(QUERY_KEYS.product(slug))?.dataUpdatedAt ||
-        queryClient.getQueryState(QUERY_KEYS.products("bar-coaters"))?.dataUpdatedAt
-      );
+      const single = queryClient.getQueryState(QUERY_KEYS.product(slug));
+      if (single?.dataUpdatedAt && single?.status === "success") {
+        return single.dataUpdatedAt;
+      }
+      const all = queryClient.getQueryState(QUERY_KEYS.products("bar-coaters"));
+      if (all?.dataUpdatedAt && all?.status === "success") {
+        return all.dataUpdatedAt;
+      }
+      return 0; // Triggers immediate background refetch from live API
     },
     enabled: Boolean(slug),
-    staleTime: 1000 * 60 * 15, // 15 minutes fresh
+    staleTime: 1000 * 60 * 5, // 5 minutes fresh once fetched from API
+    refetchOnMount: true,
     ...options,
   });
 };
