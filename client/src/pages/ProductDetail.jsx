@@ -19,11 +19,19 @@ const ProductDetail = () => {
     return <Navigate to="/" replace />;
   }
 
+  const formatImageUrl = (imgPath) => {
+    if (!imgPath) return "https://www.barcoater.com/logo.png";
+    if (imgPath.startsWith("http")) return encodeURI(imgPath);
+    return `https://www.barcoater.com${encodeURI(imgPath)}`;
+  };
+
+  const productImages = (product.images || []).map(formatImageUrl);
+
   const productSchema = {
     "@context": "https://schema.org/",
     "@type": "Product",
     name: product.name,
-    image: `https://www.barcoater.com${product.images[0]}`,
+    image: productImages.length > 1 ? productImages : productImages[0] || "https://www.barcoater.com/logo.png",
     description: product.shortDescription,
     sku: `BARCOATER-${(product.slug || product.id || "PRODUCT").toUpperCase()}`,
     mpn: `BARCOATER-${(product.slug || product.id || "PRODUCT").toUpperCase()}`,
@@ -107,6 +115,7 @@ const ProductDetail = () => {
       <SEO
         title={`${product.metaTitle}`}
         description={product.metaDescription}
+        image={productImages[0]}
         schema={[productSchema, faqSchema]}
       />
       <div className="bg-slate-50 min-h-screen py-4 lg:py-8">
@@ -128,7 +137,10 @@ const ProductDetail = () => {
               <div className="bg-gray-50 p-8 rounded-2xl w-full aspect-square flex items-center justify-center border border-gray-100 relative">
                 <img
                   src={product.images[activeImage]}
-                  alt={`${product.name} - Image ${activeImage + 1}`}
+                  alt={`${product.name} - Wire Wound Bar Coater`}
+                  fetchPriority="high"
+                  loading="eager"
+                  decoding="async"
                   className="w-full h-full object-contain mix-blend-multiply drop-shadow-xl transition-transform duration-500"
                 />
               </div>

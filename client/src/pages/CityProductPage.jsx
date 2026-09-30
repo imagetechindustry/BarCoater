@@ -160,13 +160,18 @@ const CityProductPage = () => {
     ...(product.faqs || [])
   ];
 
+  const formatImageUrl = (imgPath) => {
+    if (!imgPath) return "https://www.barcoater.com/logo.png";
+    if (imgPath.startsWith("http")) return encodeURI(imgPath);
+    return `https://www.barcoater.com${encodeURI(imgPath)}`;
+  };
+  const productImages = (images || []).map(formatImageUrl);
+
   const productSchema = {
     "@context": "https://schema.org/",
     "@type": "Product",
     name: `${product.name} in ${location.name}`,
-    image: images[0]?.startsWith("http")
-      ? images[0]
-      : `https://www.barcoater.com${images[0]}`,
+    image: productImages.length > 1 ? productImages : productImages[0] || "https://www.barcoater.com/logo.png",
     description: `${product.shortDescription} Manufactured and supplied by ImageTech Industries in ${location.name}, ${location.state}.`,
     sku: `BARCOATER-${(product.slug || "PRODUCT").toUpperCase()}-${location.slug.toUpperCase()}`,
     mpn: `BARCOATER-${(product.slug || "PRODUCT").toUpperCase()}-${location.slug.toUpperCase()}`,
@@ -250,11 +255,7 @@ const CityProductPage = () => {
       <SEO
         title={`${product.name} in ${location.name}, ${location.state} | ImageTech Industries`}
         description={`Looking for ${product.name} in ${location.name}, ${location.state}? ImageTech Industries manufactures precision wire wound Bar Coaters for laboratory testing in ${location.name}. Order your ${product.name} today with fast direct delivery across ${location.name}, ${location.state}.`}
-        image={
-          images[0]?.startsWith("http")
-            ? images[0]
-            : `https://www.barcoater.com${images[0]}`
-        }
+        image={productImages[0]}
         keywords={[
           `${product.name} in ${location.name}`,
           `${product.name} supplier ${location.name}`,
@@ -294,7 +295,10 @@ const CityProductPage = () => {
               <div className="bg-gray-50 p-8 rounded-2xl w-full aspect-square flex items-center justify-center border border-gray-100 relative">
                 <img
                   src={images[activeImage]}
-                  alt={`${product.name} in ${location.name} - Image ${activeImage + 1}`}
+                  alt={`${product.name} in ${location.name} - Wire Wound Bar Coater`}
+                  fetchPriority="high"
+                  loading="eager"
+                  decoding="async"
                   className="w-full h-full object-contain mix-blend-multiply drop-shadow-xl transition-transform duration-500"
                 />
               </div>

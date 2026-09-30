@@ -6,13 +6,13 @@ export const productsData = [
     shortDescription: "Small Size Bar Coater designed for uniform coating application and laboratory testing, with a 6 mm rod diameter and 180 mm working length.",
     externalLink: "https://www.imagetechindustries.com/products/bar-coaters-small-size",
     images: [
-      "/BARCOATER/BAR COATER NO 0/143.jpg",
-      "/BARCOATER/BAR COATER NO 0/144.jpg",
-      "/BARCOATER/BAR COATER NO 0/145.jpg",
-      "/BARCOATER/BAR COATER NO 0/146.jpg",
-      "/BARCOATER/BAR COATER NO 0/147.jpg",
-      "/BARCOATER/BAR COATER NO 0/148.jpg",
-      "/BARCOATER/BAR COATER NO 0/149.jpg"
+      "/BARCOATER/bar-coater-no-0/143.jpg",
+      "/BARCOATER/bar-coater-no-0/144.jpg",
+      "/BARCOATER/bar-coater-no-0/145.jpg",
+      "/BARCOATER/bar-coater-no-0/146.jpg",
+      "/BARCOATER/bar-coater-no-0/147.jpg",
+      "/BARCOATER/bar-coater-no-0/148.jpg",
+      "/BARCOATER/bar-coater-no-0/149.jpg"
     ],
     overview: "Small Size Bar Coaters (often known as wire wound rods, drawdown bars, or Mayer rods) are precision coating tools designed for applying a highly controlled and uniform layer of coating, ink, adhesive, varnish, and other liquid materials on different test surfaces. They are an indispensable instrument for laboratory testing, drawdown sample preparation, coating evaluation, and quality control applications.",
     detailedDescription: `These high-precision drawdown bar coaters provide a simple, reliable, and convenient way to achieve repeatable coating thickness during testing. Different bar numbers (often referred to as K bars) allow users to select the precise wet film thickness level required according to the viscosity of the material and the application being tested.
@@ -67,10 +67,10 @@ To use the Small Size Bar Coater, simply place your test substrate on a flat, ev
     shortDescription: "Medium Size Bar Coater designed for smooth and uniform coating application, perfect for laboratory testing and quality control.",
     externalLink: "https://www.imagetechindustries.com/products/bar-coaters-small-size",
     images: [
-      "/BARCOATER/BAR COATER NO 1/159.jpg",
-      "/BARCOATER/BAR COATER NO 1/142.jpg",
-      "/BARCOATER/BAR COATER NO 1/150.jpg",
-      "/BARCOATER/BAR COATER NO 1/151.jpg"
+      "/BARCOATER/bar-coater-no-1/159.jpg",
+      "/BARCOATER/bar-coater-no-1/142.jpg",
+      "/BARCOATER/bar-coater-no-1/150.jpg",
+      "/BARCOATER/bar-coater-no-1/151.jpg"
     ],
     overview: "Medium Size Bar Coaters (also known as K bars or Mayer rods) offer a perfect balance of size and handling for applying highly controlled layers of coating on test substrates. They are extensively utilized in professional ink testing, paint drawdown evaluation, and adhesive thickness testing applications.",
     detailedDescription: `Achieve flawless coating evaluations with the Medium Size Bar Coater. Its precision-engineered wire-wound grooves ensure that you apply a perfectly even wet film layer of liquid materials every time, making it an essential drawdown tool for R&D labs, quality assurance departments, and manufacturing facilities.
@@ -119,10 +119,10 @@ The Medium Size Mayer Rod is highly favored in the flexible packaging, cosmetics
     shortDescription: "Big Size Bar Coater designed for uniform coating application and laboratory testing, with a 10 mm rod diameter and 280 mm working length.",
     externalLink: "https://www.imagetechindustries.com/products/bar-coaters-big-size",
     images: [
-      "/BARCOATER/BAR COATER NO 2/160.jpg",
-      "/BARCOATER/BAR COATER NO 2/152.jpg",
-      "/BARCOATER/BAR COATER NO 2/153.jpg",
-      "/BARCOATER/BAR COATER NO 2/154.jpg"
+      "/BARCOATER/bar-coater-no-2/160.jpg",
+      "/BARCOATER/bar-coater-no-2/152.jpg",
+      "/BARCOATER/bar-coater-no-2/153.jpg",
+      "/BARCOATER/bar-coater-no-2/154.jpg"
     ],
     overview: "Big Size Bar Coaters (drawdown bars) are expertly designed for applying a smooth and uniform wet film coating layer on wider test substrates. They are highly useful for laboratory testing, advanced coating development, and strict quality control applications where consistent coating application across a broad surface is absolutely required.",
     detailedDescription: `These Big Size Bar Coaters feature a robust 10 mm rod diameter, a 380 mm total length, and a 280 mm working length. The increased diameter ensures the rod remains rigid and straight, allowing users to apply the required coating thickness without bowing or bending over larger areas.
@@ -176,10 +176,10 @@ This 10 mm thick K bar provides superior stability, making it the go-to choice f
     shortDescription: "Extra Big Size Bar Coater built for maximum coverage on wide webs and large test panels.",
     externalLink: "https://www.imagetechindustries.com/products/bar-coaters-big-size",
     images: [
-      "/BARCOATER/BAR COATER NO 3/158.jpg",
-      "/BARCOATER/BAR COATER NO 3/155.jpg",
-      "/BARCOATER/BAR COATER NO 3/156.jpg",
-      "/BARCOATER/BAR COATER NO 3/157.jpg"
+      "/BARCOATER/bar-coater-no-3/158.jpg",
+      "/BARCOATER/bar-coater-no-3/155.jpg",
+      "/BARCOATER/bar-coater-no-3/156.jpg",
+      "/BARCOATER/bar-coater-no-3/157.jpg"
     ],
     overview: "The Extra Big Size Bar Coater is an industrial-grade Mayer rod intended for extensive laboratory tests and large-scale sample preparations. Its wide working length and extremely rigid construction ensure smooth and continuous wet film coating applications over exceptionally large areas.",
     detailedDescription: `When standard testing sizes aren't enough, the Extra Big Size Bar Coater steps in. Designed with a robust 12 mm rod diameter and an extended working length, it is the perfect drawdown bar for broad coating evaluations on large paper sheets or industrial film rolls.

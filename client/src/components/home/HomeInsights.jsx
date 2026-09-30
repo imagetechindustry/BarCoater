@@ -6,21 +6,21 @@ const articles = [
     title: "How to Choose the Right Bar Coater for Your Testing Needs",
     date: "Mar 15, 2024",
     category: "Technical Guide",
-    image: "/BARCOATER/BAR COATER NO 0/143.jpg",
+    image: "/BARCOATER/bar-coater-no-0/143.jpg",
   },
   {
     id: 2,
     title: "Improving Laboratory Testing with Precision Bar Coaters",
     date: "Feb 28, 2024",
     category: "Industry Insight",
-    image: "/BARCOATER/BAR COATER NO 1/159.jpg",
+    image: "/BARCOATER/bar-coater-no-1/159.jpg",
   },
   {
     id: 3,
     title: "Advancements in Industrial Coating Evaluations",
     date: "Jan 15, 2024",
     category: "Product Update",
-    image: "/BARCOATER/BAR COATER NO 3/158.jpg",
+    image: "/BARCOATER/bar-coater-no-3/158.jpg",
   },
 ];
 
