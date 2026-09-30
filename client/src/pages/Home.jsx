@@ -10,6 +10,7 @@ import HomeAbout from "../components/home/HomeAbout";
 import HomeCertifications from "../components/home/HomeCertifications";
 import HomeWhyChoose from "../components/home/HomeWhyChoose";
 import HomeFAQ from "../components/home/HomeFAQ";
+import HomeInsights from "../components/home/HomeInsights";
 import HomeCTA from "../components/home/HomeCTA";
 import SEO from "../components/common/SEO";
 
@@ -130,6 +131,7 @@ const Home = () => {
         <HomeWorkingPrinciple />
         <HomePressApplications />
         <HomeTroubleshootingFinder />
+        <HomeInsights />
         <HomeFAQ />
         <HomeCTA />
       </main>

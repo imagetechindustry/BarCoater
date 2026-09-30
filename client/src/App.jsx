@@ -25,6 +25,8 @@ import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import QuoteModal from "./components/common/QuoteModal";
 import { usePrefetchLocations } from "./services/api";
+import BlogList from "./pages/BlogList";
+import BlogPost from "./pages/BlogPost";
 
 import scrollToTop from "./utils/scrollToTop";
 
@@ -46,6 +48,7 @@ import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import { AdminQuotes, AdminContacts } from "./pages/admin/AdminSubmissions";
 import AdminLocations from "./pages/admin/AdminLocations";
+import AdminBlogs from "./pages/admin/AdminBlogs";
 
 // Layout wrapper for public pages (includes Navbar + Footer)
 const PublicLayout = ({ children }) => (
@@ -180,6 +183,22 @@ function App() {
             }
           />
           <Route
+            path="/blog"
+            element={
+              <PublicLayout>
+                <BlogList />
+              </PublicLayout>
+            }
+          />
+          <Route
+            path="/blog/:slug"
+            element={
+              <PublicLayout>
+                <BlogPost />
+              </PublicLayout>
+            }
+          />
+          <Route
             path="/:locationSlug"
             element={
               <PublicLayout>
@@ -215,6 +234,14 @@ function App() {
             element={
               <AdminProtectedRoute>
                 <AdminLocations />
+              </AdminProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/blogs"
+            element={
+              <AdminProtectedRoute>
+                <AdminBlogs />
               </AdminProtectedRoute>
             }
           />
