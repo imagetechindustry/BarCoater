@@ -12,7 +12,6 @@ import {
   Activity,
 } from "lucide-react";
 import { useLocation as useLocationQuery, useProduct } from "../services/api";
-import { productsData } from "../data/products";
 import SEO from "../components/common/SEO";
 import NotFound from "../components/common/NotFound";
 import FAQSection from "../components/common/FAQSection";

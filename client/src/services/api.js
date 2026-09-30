@@ -1,5 +1,4 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from "@tanstack/react-query";
-import { productsData } from "../data/products";
 
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 const IMAGETECH_API_URL = import.meta.env.VITE_IMAGETECH_API_URL || 'https://api.imagetechindustries.com/api';
@@ -522,14 +521,13 @@ const resolveBoxIcon = (title, icon) => {
 /**
  * Maps ImageTech backend product schema to the client UI schema
  * @param {Object} p - API Product object
- * @param {Object|null} fallbackProduct - Local fallback product
- * @returns {Object} Mapped product
+ * @returns {Object|null} Mapped product
  */
-export const mapApiProductToClient = (p, fallbackProduct = null) => {
-  if (!p && !fallbackProduct) return null;
+export const mapApiProductToClient = (p) => {
+  if (!p) return null;
 
   // Resolve canonical client slug vs API slug
-  const rawSlug = p?.slug || fallbackProduct?.slug || "";
+  const rawSlug = p?.slug || "";
   const clientSlug =
     rawSlug === "bar-coaters-small-size"
       ? "bar-coater-small-size"
@@ -537,18 +535,12 @@ export const mapApiProductToClient = (p, fallbackProduct = null) => {
       ? "bar-coater-large-size"
       : rawSlug;
 
-  const fb =
-    fallbackProduct ||
-    productsData.find((item) => item.slug === clientSlug || item.slug === rawSlug) ||
-    null;
-
-  const isFromApi = Boolean(p && (p.title || p.name));
-  const title = p?.title || p?.name || fb?.name || "Bar Coater";
-  const shortDesc = p?.shortDesc || p?.shortDescription || fb?.shortDescription || "";
-  const longDesc = p?.longDesc || fb?.detailedDescription || shortDesc;
+  const title = p?.title || p?.name || "Bar Coater";
+  const shortDesc = p?.shortDesc || p?.shortDescription || "";
+  const longDesc = p?.longDesc || shortDesc;
 
   return {
-    _id: p?._id || fb?.id || clientSlug,
+    _id: p?._id || clientSlug,
     id: clientSlug,
     slug: clientSlug,
     apiSlug: rawSlug,
@@ -558,17 +550,18 @@ export const mapApiProductToClient = (p, fallbackProduct = null) => {
     shortDesc,
     externalLink:
       p?.externalLink ||
-      fb?.externalLink ||
       `https://www.imagetechindustries.com/products/${p?.slug || clientSlug}`,
     images:
       p?.images && p.images.length > 0
         ? p.images
-        : fb?.images || ["/BARCOATER/bar-coater-no-0/143.jpg"],
-    overview: isFromApi
-      ? extractOverview(p?.longDesc, shortDesc) || fb?.overview || shortDesc
-      : fb?.overview || extractOverview(p?.longDesc, shortDesc),
+        : [
+            clientSlug === "bar-coater-large-size"
+              ? "/BARCOATER/bar-coater-no-0/144.jpg"
+              : "/BARCOATER/bar-coater-no-0/143.jpg",
+          ],
+    overview: extractOverview(p?.longDesc, shortDesc) || shortDesc,
     detailedDescription: longDesc,
-    longDesc: isFromApi && p?.longDesc ? p.longDesc : (fb?.longDesc || null),
+    longDesc: p?.longDesc || null,
     category: p?.category || { name: "Bar Coaters", slug: "bar-coaters" },
     infoBoxes:
       p?.infoBoxes && p.infoBoxes.length > 0
@@ -588,48 +581,41 @@ export const mapApiProductToClient = (p, fallbackProduct = null) => {
             ...f,
             icon: f.icon || "Target",
           }))
-        : (fb?.keyFeatures || []).map((kf) => {
-            const parts = kf.split(" for ");
-            return {
-              title: parts[0] || kf,
-              desc: parts[1] ? `Engineered for ${parts[1]}` : kf,
-              icon: "Target",
-            };
-          }),
+        : [],
     keyFeatures:
       p?.features && p.features.length > 0
         ? p.features
         : p?.overviewFeatures && p.overviewFeatures.length > 0
         ? p.overviewFeatures.map((f) => (f.desc ? `${f.title}: ${f.desc}` : f.title))
-        : fb?.keyFeatures || [],
+        : [],
     features:
       p?.features && p.features.length > 0
         ? p.features
-        : fb?.keyFeatures || [],
-    applications: extractApplications(p?.longDesc, fb?.applications),
+        : [],
+    applications: extractApplications(p?.longDesc),
     specifications:
       p?.specifications && p.specifications.length > 0
         ? p.specifications
-        : fb?.specifications || [],
+        : [],
     faqs:
       p?.faqs && p.faqs.length > 0
         ? p.faqs
-        : fb?.faqs || [],
-    metaTitle: p?.seoTitle || fb?.metaTitle || `${title} | ImageTech Industries`,
-    metaDescription: p?.seoDescription || fb?.metaDescription || shortDesc,
+        : [],
+    metaTitle: p?.seoTitle || `${title} | ImageTech Industries`,
+    metaDescription: p?.seoDescription || shortDesc,
     keywords:
       typeof p?.seoKeywords === "string"
         ? p.seoKeywords.split(",").map((k) => k.trim()).filter(Boolean)
         : Array.isArray(p?.seoKeywords)
         ? p.seoKeywords
-        : fb?.keywords || ["bar coater", title, "ImageTech Industries"],
-    ratingValue: p?.ratingValue || fb?.ratingValue || "4.9",
-    reviewCount: p?.reviewCount || fb?.reviewCount || "120",
+        : ["bar coater", title, "ImageTech Industries"],
+    ratingValue: p?.ratingValue || "4.9",
+    reviewCount: p?.reviewCount || "120",
   };
 };
 
 /**
- * Fetch all bar coater products directly from ImageTech API with fallback
+ * Fetch all bar coater products directly from ImageTech API
  * @param {string} category
  * @returns {Promise<Array>}
  */
@@ -656,18 +642,10 @@ export const fetchProducts = async (category = "bar-coaters") => {
       );
     });
 
-    const mappedApiProducts = bcApiProducts.map((p) => mapApiProductToClient(p));
-    const apiSlugs = new Set(mappedApiProducts.map((p) => p.slug));
-
-    // Preserve static products from productsData not yet present in the live API DB
-    const missingFallbackProducts = productsData
-      .filter((p) => !apiSlugs.has(p.slug))
-      .map((p) => mapApiProductToClient(null, p));
-
-    return [...mappedApiProducts, ...missingFallbackProducts];
+    return bcApiProducts.map((p) => mapApiProductToClient(p));
   } catch (error) {
-    console.warn("ImageTech API fetch failed, falling back to local productsData:", error);
-    return productsData.map((p) => mapApiProductToClient(null, p));
+    console.error("ImageTech API fetch failed:", error);
+    throw error;
   }
 };
 
@@ -677,12 +655,10 @@ const SLUG_ALIASES = {
   "bar-coaters-big-size": ["bar-coaters-big-size", "bar-coater-large-size"],
   "bar-coater-small-size": ["bar-coaters-small-size", "bar-coater-small-size"],
   "bar-coaters-small-size": ["bar-coaters-small-size", "bar-coater-small-size"],
-  "bar-coater-medium-size": ["bar-coaters-medium-size", "bar-coater-medium-size"],
-  "bar-coater-extra-large-size": ["bar-coaters-extra-large-size", "bar-coater-extra-large-size"],
 };
 
 /**
- * Fetch a single product by slug directly from ImageTech API with fallback
+ * Fetch a single product by slug directly from ImageTech API
  * @param {string} slug
  * @returns {Promise<Object>}
  */
@@ -709,14 +685,6 @@ export const fetchProductBySlug = async (slug) => {
     } catch {
       // Continue to next candidate
     }
-  }
-
-  // Fallback to local productsData
-  const localFallback = productsData.find(
-    (p) => p.slug === slug || candidateSlugs.includes(p.slug)
-  );
-  if (localFallback) {
-    return mapApiProductToClient(null, localFallback);
   }
 
   const err = new Error(`Product not found: ${slug}`);
@@ -1139,7 +1107,7 @@ export const useAdminTogglePublishBlog = (token, options = {}) => {
 
 /* ── Product Hooks (ImageTech Backend) ── */
 
-/** Hook: Fetch and cache bar coater products directly from API with 0ms fallback */
+/** Hook: Fetch and cache bar coater products directly from API */
 export const useProducts = (category = "bar-coaters", options = {}) => {
   const queryClient = useQueryClient();
   return useQuery({
@@ -1147,7 +1115,7 @@ export const useProducts = (category = "bar-coaters", options = {}) => {
     queryFn: async () => {
       const data = await fetchProducts(category);
       if (Array.isArray(data)) {
-        // Automatically seed query cache for individual products for 0ms transitions
+        // Automatically seed query cache for individual products for fast transitions
         data.forEach((prod) => {
           if (prod && prod.slug) {
             queryClient.setQueryData(QUERY_KEYS.product(prod.slug), prod);
@@ -1156,23 +1124,12 @@ export const useProducts = (category = "bar-coaters", options = {}) => {
       }
       return data;
     },
-    initialData: () => {
-      return productsData.map((p) => mapApiProductToClient(null, p));
-    },
-    initialDataUpdatedAt: () => {
-      const list = queryClient.getQueryState(QUERY_KEYS.products(category));
-      if (list?.dataUpdatedAt && list?.status === "success") {
-        return list.dataUpdatedAt;
-      }
-      return 0; // Triggers immediate background refetch from live API
-    },
     staleTime: 1000 * 60 * 5, // 5 minutes fresh once fetched from API
-    refetchOnMount: true,
     ...options,
   });
 };
 
-/** Hook: Fetch and cache a single product with 0ms fallback */
+/** Hook: Fetch and cache a single product */
 export const useProduct = (slug, options = {}) => {
   const queryClient = useQueryClient();
   return useQuery({
@@ -1187,13 +1144,9 @@ export const useProduct = (slug, options = {}) => {
       // 2. Derive from all-products query cache
       const allProducts = queryClient.getQueryData(QUERY_KEYS.products("bar-coaters"));
       if (Array.isArray(allProducts)) {
-        const found = allProducts.find((p) => p.slug === slug || p.id === slug);
+        const found = allProducts.find((p) => p.slug === slug || p.id === slug || p.apiSlug === slug);
         if (found) return found;
       }
-
-      // 3. Fallback to local productsData for 0ms render
-      const local = productsData.find((p) => p.slug === slug || p.id === slug);
-      if (local) return mapApiProductToClient(null, local);
 
       return undefined;
     },
@@ -1206,11 +1159,10 @@ export const useProduct = (slug, options = {}) => {
       if (all?.dataUpdatedAt && all?.status === "success") {
         return all.dataUpdatedAt;
       }
-      return 0; // Triggers immediate background refetch from live API
+      return 0;
     },
     enabled: Boolean(slug),
     staleTime: 1000 * 60 * 5, // 5 minutes fresh once fetched from API
-    refetchOnMount: true,
     ...options,
   });
 };

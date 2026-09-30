@@ -27,10 +27,8 @@ const CATEGORIES = [
 ];
 
 const PRODUCTS = [
-  { slug: "bar-coater-small-size", name: "Bar Coater Small Size (No. 0)" },
-  { slug: "bar-coater-medium-size", name: "Bar Coater Medium Size (No. 1)" },
-  { slug: "bar-coater-large-size", name: "Bar Coater Big Size (No. 2)" },
-  { slug: "bar-coater-extra-large-size", name: "Bar Coater Extra Big Size (No. 3)" },
+  { slug: "bar-coater-small-size", name: "Bar Coaters Small Size" },
+  { slug: "bar-coater-large-size", name: "Bar Coaters Big Size" },
 ];
 
 export default function AdminBlogEditor({ blogId, token, onClose }) {

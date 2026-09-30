@@ -1,13 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useProduct } from "../../services/api";
-import { productsData } from "../../data/products";
 
 export default function BlogProductCTA({ productSlug = "bar-coater-small-size" }) {
-  const { data: apiProduct } = useProduct(productSlug);
-  const fallback =
-    productsData.find((p) => p.slug === productSlug) || productsData[0];
-  const product = apiProduct || fallback;
+  const { data: product } = useProduct(productSlug);
+  if (!product) return null;
 
   const handleOpenQuote = () => {
     window.dispatchEvent(

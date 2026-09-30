@@ -328,29 +328,7 @@ const Footer = () => {
                       d="M9 5l7 7-7 7"
                     />
                   </svg>
-                  <span>Small Size Bar Coater</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to={getProductLink("bar-coater-medium-size")}
-                  onClick={scrollToTop}
-                  className="hover:text-blue-600 flex items-start transition-colors"
-                >
-                  <svg
-                    className="w-3 h-3 text-blue-500 mr-2 mt-1 shrink-0"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                  <span>Medium Size Bar Coater</span>
+                  <span>Small Size Bar Coaters</span>
                 </Link>
               </li>
               <li>
@@ -372,29 +350,7 @@ const Footer = () => {
                       d="M9 5l7 7-7 7"
                     />
                   </svg>
-                  <span>Big Size Bar Coater</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to={getProductLink("bar-coater-extra-large-size")}
-                  onClick={scrollToTop}
-                  className="hover:text-blue-600 flex items-start transition-colors"
-                >
-                  <svg
-                    className="w-3 h-3 text-blue-500 mr-2 mt-1 shrink-0"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                  <span>Extra Big Size Bar Coater</span>
+                  <span>Big Size Bar Coaters</span>
                 </Link>
               </li>
             </ul>
