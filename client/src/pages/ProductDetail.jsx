@@ -79,7 +79,12 @@ const ProductDetail = () => {
     return <Navigate to="/" replace />;
   }
 
-  const relatedProducts = allProducts.filter((p) => p.slug !== slug).slice(0, 4);
+  // Canonical redirect if accessed via legacy alias (e.g. /products/bar-coater-small-size -> /products/bar-coaters-small-size)
+  if (product.slug && slug && slug !== product.slug) {
+    return <Navigate to={`/products/${product.slug}`} replace />;
+  }
+
+  const relatedProducts = allProducts.filter((p) => p.slug !== product.slug && p.apiSlug !== product.apiSlug).slice(0, 4);
 
   const formatImageUrl = (imgPath) => {
     if (!imgPath) return "https://www.barcoater.com/heroimage.webp";

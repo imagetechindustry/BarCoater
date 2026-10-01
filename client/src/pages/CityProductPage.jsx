@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Navigate } from "react-router-dom";
 import {
   Shield,
   Truck,
@@ -160,6 +160,11 @@ const CityProductPage = () => {
         message={`We could not find the requested combination of "${locationSlug}" and "${productSlug}". Please verify the location and product or browse our sitemap.`}
       />
     );
+  }
+
+  // Canonical redirect if accessed via legacy alias (e.g. /delhi/bar-coater-small-size -> /delhi/bar-coaters-small-size)
+  if (product.slug && productSlug && productSlug !== product.slug) {
+    return <Navigate to={`/${locationSlug}/${product.slug}`} replace />;
   }
 
   const images =

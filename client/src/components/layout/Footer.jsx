@@ -1,10 +1,12 @@
 import React from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
 import scrollToTop from "../../utils/scrollToTop";
+import { useProducts } from "../../services/api";
 
 const Footer = () => {
   const { locationSlug } = useParams();
   const { pathname } = useLocation();
+  const { data: products = [] } = useProducts();
 
   // Helper to maintain city context in links
   const getProductLink = (productSlug) => {
@@ -309,50 +311,30 @@ const Footer = () => {
               OUR PRODUCTS
             </h4>
             <ul className="space-y-3 text-sm text-gray-900 font-bold font-semibold">
-              <li>
-                <Link
-                  to={getProductLink("bar-coater-small-size")}
-                  onClick={scrollToTop}
-                  className="hover:text-blue-600 flex items-start transition-colors"
-                >
-                  <svg
-                    className="w-3 h-3 text-blue-500 mr-2 mt-1 shrink-0"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+              {products.map((p) => (
+                <li key={p.id || p.slug}>
+                  <Link
+                    to={getProductLink(p.slug)}
+                    onClick={scrollToTop}
+                    className="hover:text-blue-600 flex items-start transition-colors"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                  <span>Small Size Bar Coaters</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to={getProductLink("bar-coater-large-size")}
-                  onClick={scrollToTop}
-                  className="hover:text-blue-600 flex items-start transition-colors"
-                >
-                  <svg
-                    className="w-3 h-3 text-blue-500 mr-2 mt-1 shrink-0"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                  <span>Big Size Bar Coaters</span>
-                </Link>
-              </li>
+                    <svg
+                      className="w-3 h-3 text-blue-500 mr-2 mt-1 shrink-0"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                    <span>{p.name || p.title}</span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

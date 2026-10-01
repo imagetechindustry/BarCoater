@@ -4,6 +4,7 @@ import {
   useAdminCreateBlog,
   useAdminUpdateBlog,
   adminUploadImage,
+  useProducts,
 } from "../../services/api";
 
 const ALL_SITES = [
@@ -26,15 +27,13 @@ const CATEGORIES = [
   "Case Studies",
 ];
 
-const PRODUCTS = [
-  { slug: "bar-coater-small-size", name: "Bar Coaters Small Size" },
-  { slug: "bar-coater-large-size", name: "Bar Coaters Big Size" },
-];
+
 
 export default function AdminBlogEditor({ blogId, token, onClose }) {
   const isEditing = Boolean(blogId);
 
   const { data: blogData, isLoading: loadingBlog } = useAdminBlog(token, blogId);
+  const { data: products = [] } = useProducts();
   const createBlogMutation = useAdminCreateBlog(token);
   const updateBlogMutation = useAdminUpdateBlog(token);
 
@@ -50,7 +49,7 @@ export default function AdminBlogEditor({ blogId, token, onClose }) {
     metaTitle: "",
     metaDescription: "",
     keywords: "bar coater, wire wound rod, coating evaluation",
-    relatedProductSlug: "bar-coater-small-size",
+    relatedProductSlug: "bar-coaters-small-size",
     isPublished: true,
     faqs: [
       { question: "", answer: "" },
@@ -94,7 +93,7 @@ export default function AdminBlogEditor({ blogId, token, onClose }) {
         metaTitle: b.metaTitle || "",
         metaDescription: b.metaDescription || "",
         keywords: Array.isArray(b.keywords) ? b.keywords.join(", ") : b.keywords || "",
-        relatedProductSlug: b.relatedProductSlug || "bar-coater-small-size",
+        relatedProductSlug: b.relatedProductSlug || "bar-coaters-small-size",
         isPublished: b.isPublished ?? true,
         faqs: b.faqs && b.faqs.length > 0 ? b.faqs : [{ question: "", answer: "" }],
       });
@@ -452,9 +451,9 @@ export default function AdminBlogEditor({ blogId, token, onClose }) {
                   onChange={(e) => handleChange("relatedProductSlug", e.target.value)}
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-blue-500 cursor-pointer"
                 >
-                  {PRODUCTS.map((p) => (
+                  {products.map((p) => (
                     <option key={p.slug} value={p.slug}>
-                      {p.name}
+                      {p.name || p.title}
                     </option>
                   ))}
                 </select>

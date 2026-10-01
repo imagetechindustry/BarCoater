@@ -526,39 +526,27 @@ const resolveBoxIcon = (title, icon) => {
 export const mapApiProductToClient = (p) => {
   if (!p) return null;
 
-  // Resolve canonical client slug vs API slug
-  const rawSlug = p?.slug || "";
-  const clientSlug =
-    rawSlug === "bar-coaters-small-size"
-      ? "bar-coater-small-size"
-      : rawSlug === "bar-coaters-big-size"
-      ? "bar-coater-large-size"
-      : rawSlug;
-
+  const slug = p?.slug || "";
   const title = p?.title || p?.name || "Bar Coater";
   const shortDesc = p?.shortDesc || p?.shortDescription || "";
   const longDesc = p?.longDesc || shortDesc;
 
   return {
-    _id: p?._id || clientSlug,
-    id: clientSlug,
-    slug: clientSlug,
-    apiSlug: rawSlug,
+    _id: p?._id || slug,
+    id: slug,
+    slug: slug,
+    apiSlug: slug,
     name: title,
     title,
     shortDescription: shortDesc,
     shortDesc,
     externalLink:
       p?.externalLink ||
-      `https://www.imagetechindustries.com/products/${p?.slug || clientSlug}`,
+      `https://www.imagetechindustries.com/products/${slug}`,
     images:
       p?.images && p.images.length > 0
         ? p.images
-        : [
-            clientSlug === "bar-coater-large-size"
-              ? "/BARCOATER/bar-coater-no-0/144.jpg"
-              : "/BARCOATER/bar-coater-no-0/143.jpg",
-          ],
+        : ["/heroimage.webp"],
     overview: extractOverview(p?.longDesc, shortDesc) || shortDesc,
     detailedDescription: longDesc,
     longDesc: p?.longDesc || null,
@@ -569,12 +557,7 @@ export const mapApiProductToClient = (p) => {
             ...box,
             icon: resolveBoxIcon(box.title, box.icon),
           }))
-        : [
-            { title: "Rod Diameter", value: "6 mm - 10 mm", icon: "Settings" },
-            { title: "Application", value: "Coating & Lab Testing", icon: "Layout" },
-            { title: "Customization", value: "Wire Wound Gauges", icon: "Maximize" },
-            { title: "Supply", value: "All India Delivery", icon: "Truck" },
-          ],
+        : [],
     overviewFeatures:
       p?.overviewFeatures && p.overviewFeatures.length > 0
         ? p.overviewFeatures.map((f) => ({
@@ -649,14 +632,6 @@ export const fetchProducts = async (category = "bar-coaters") => {
   }
 };
 
-/** Known slug aliases mapping client routes to backend database slugs */
-const SLUG_ALIASES = {
-  "bar-coater-large-size": ["bar-coaters-big-size", "bar-coater-large-size"],
-  "bar-coaters-big-size": ["bar-coaters-big-size", "bar-coater-large-size"],
-  "bar-coater-small-size": ["bar-coaters-small-size", "bar-coater-small-size"],
-  "bar-coaters-small-size": ["bar-coaters-small-size", "bar-coater-small-size"],
-};
-
 /**
  * Fetch a single product by slug directly from ImageTech API
  * @param {string} slug
@@ -665,26 +640,26 @@ const SLUG_ALIASES = {
 export const fetchProductBySlug = async (slug) => {
   if (!slug) throw new Error("Product slug is required");
 
-  // Determine priority candidate slugs (exact alias match first)
-  const candidateSlugs = SLUG_ALIASES[slug] || [
-    slug,
-    slug.replace("large-size", "big-size"),
-    slug.replace(/^bar-coater-/, "bar-coaters-"),
-    slug.replace(/^bar-coaters-/, "bar-coater-"),
-  ];
-
-  for (const candidate of candidateSlugs) {
-    try {
-      const res = await fetch(`${IMAGETECH_API_URL}/products/${candidate}`);
-      if (res.ok) {
-        const data = await res.json();
-        if (data && data.slug) {
-          return mapApiProductToClient(data);
-        }
+  // 1. Direct fetch with the requested slug
+  try {
+    const res = await fetch(`${IMAGETECH_API_URL}/products/${slug}`);
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.slug) {
+        return mapApiProductToClient(data);
       }
-    } catch {
-      // Continue to next candidate
     }
+  } catch {
+    // Continue
+  }
+
+  // 2. Fallback check across all products in case of minor variation
+  try {
+    const allProducts = await fetchProducts();
+    const matched = allProducts.find((p) => p.slug === slug || p.id === slug || p.apiSlug === slug);
+    if (matched) return matched;
+  } catch {
+    // Continue
   }
 
   const err = new Error(`Product not found: ${slug}`);
@@ -1144,7 +1119,9 @@ export const useProduct = (slug, options = {}) => {
       // 2. Derive from all-products query cache
       const allProducts = queryClient.getQueryData(QUERY_KEYS.products("bar-coaters"));
       if (Array.isArray(allProducts)) {
-        const found = allProducts.find((p) => p.slug === slug || p.id === slug || p.apiSlug === slug);
+        const found = allProducts.find(
+          (p) => p.slug === slug || p.id === slug || p.apiSlug === slug
+        );
         if (found) return found;
       }
 
