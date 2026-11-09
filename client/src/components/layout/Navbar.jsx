@@ -23,7 +23,6 @@ const Navbar = () => {
     { name: "Certifications", href: "/certifications" },
     { name: "Contact Us", href: "/contact" },
     { name: "Blog", href: "/blog" },
-    // { name: "Sitemap", href: "/sitemap" },
   ];
 
   const isActive = (href) => {
@@ -201,17 +200,6 @@ const Navbar = () => {
             >
               Blog
             </Link>
-            {/* <Link
-              to="/sitemap"
-              onClick={scrollToTop}
-              className={`flex items-center px-3 py-2 text-sm font-semibold rounded-md transition-colors ${
-                isActive("/sitemap")
-                  ? "text-blue-600 border-b-2 border-blue-600"
-                  : "text-gray-900 font-bold hover:text-blue-600"
-              }`}
-            >
-              Sitemap
-            </Link> */}
           </div>
 
           {/* Right Actions */}
@@ -401,20 +389,6 @@ const Navbar = () => {
             >
               Blog
             </Link>
-            {/* <Link
-              to="/sitemap"
-              onClick={() => {
-                setIsOpen(false);
-                scrollToTop();
-              }}
-              className={`block px-3 py-2.5 rounded-xl text-base font-semibold ${
-                isActive("/sitemap")
-                  ? "text-blue-600 bg-blue-50 font-bold"
-                  : "text-gray-900 font-bold hover:text-blue-600 hover:bg-gray-50"
-              }`}
-            >
-              Sitemap
-            </Link> */}
             <div className="pt-4 mt-2 border-t border-gray-100">
               <button
                 onClick={() => {
